@@ -1,0 +1,15 @@
+[project]
+name = "sistema-doacoes"
+version = "0.0.1"
+dependencies = [
+    "flask",
+    "flask_security",
+    "sqlalchemy",
+    "paracelsus"
+]
+
+[tool.paracelsus]
+base = "app.database:db"
+imports = [
+    "app.models"
+]

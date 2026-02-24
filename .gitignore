@@ -1,0 +1,5 @@
+.venv
+*.db
+uv.lock
+.idea
+**/__pycache__
