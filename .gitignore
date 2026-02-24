@@ -3,3 +3,5 @@
 uv.lock
 .idea
 **/__pycache__
+*.egg-info
+build

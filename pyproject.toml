@@ -2,14 +2,13 @@
 name = "sistema-doacoes"
 version = "0.0.1"
 dependencies = [
-    "flask",
-    "flask_security",
-    "sqlalchemy",
-    "paracelsus"
+  "flask",
+  "flask_security",
+  "sqlalchemy",
+  "paracelsus",
+  "argon2-cffi",
 ]
 
 [tool.paracelsus]
 base = "app.database:db"
-imports = [
-    "app.models"
-]
+imports = ["app.models"]
