@@ -38,6 +38,7 @@ paracelsus graph
 o resultado é um código que gera um gráfico `mermaid`, da pra ver abrindo o código-fonte deste arquivo `README.md`
 
 ## esboço do ERM (Modelo Relacional de Entidades) do Banco de Dados
+### pessoal, ignorem a tabela `user`, ela tem todos esses campos pq é gerada automaticamente pela biblioteca.
 ```mermaid
 erDiagram
   assistido {
