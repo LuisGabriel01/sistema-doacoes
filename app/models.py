@@ -1,0 +1,94 @@
+import enum
+from datetime import datetime
+from typing import List, Optional
+
+from sqlalchemy import ForeignKey, CheckConstraint
+from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import mapped_column
+from sqlalchemy.orm import relationship
+
+from app.database import db
+from flask_security.models import sqla as sqla
+
+
+class Role(db, sqla.FsRoleMixin):
+    __tablename__ = 'role'
+
+class User(db, sqla.FsUserMixin):
+    __tablename__ = "user"
+
+class StatusItem(enum.Enum):
+    AGUARDA_COLETA = 'aguarda_coleta'
+    EM_ESTOQUE = 'em_estoque'
+    ENTREGUE = 'entregue'
+
+class ContatoMixin:
+    id: Mapped[int] = mapped_column(primary_key=True)
+    nome: Mapped[str] = mapped_column(unique=True)
+    endereco: Mapped[str] = mapped_column()
+    email: Mapped[str] = mapped_column()
+    telefone: Mapped[str] = mapped_column()
+
+class Instituicao(db, ContatoMixin):
+    __tablename__ = "instituicao"
+
+    itens: Mapped[List["Item"]] = relationship(back_populates="instituicao")
+
+class Doador(db, ContatoMixin):
+    __tablename__ = "doador"
+
+    itens: Mapped[List["Item"]] = relationship(back_populates="doador")
+
+class Assistido(db, ContatoMixin):
+    __tablename__ = "assistido"
+
+    itens: Mapped[List["Item"]] = relationship(back_populates="assistido")
+    quant_familia: Mapped[int] = mapped_column(default=1)
+
+class CategoriaItem(db):
+    __tablename__ = "categoria_item"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    nome: Mapped[str] = mapped_column(unique=True)
+
+class NomeItem(db):
+    __tablename__ = "nome_item"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    nome: Mapped[str] = mapped_column(unique=True)
+    categoria_id: Mapped[int] = mapped_column(ForeignKey("categoria_item.id"))
+
+class Item(db):
+    __tablename__ = "item"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    nome_id: Mapped[int] = mapped_column(ForeignKey("nome_item.id"))
+    coleta_id: Mapped[Optional[int]] = mapped_column(ForeignKey("coleta.id"))
+    entrega_id: Mapped[Optional[int]] = mapped_column(ForeignKey("entrega.id"))
+    status: Mapped[StatusItem] = mapped_column(default=StatusItem.AGUARDA_COLETA)
+
+    doador_id: Mapped[Optional[int]] = mapped_column(ForeignKey("doador.id"))
+    instituicao_id: Mapped[Optional[int]] = mapped_column(ForeignKey("instituicao.id"))
+    assistido_id: Mapped[Optional[int]] = mapped_column(ForeignKey("assistido.id"))
+
+    doador: Mapped["Doador"] = relationship(back_populates="itens")
+    instituicao: Mapped["Instituicao"] = relationship(back_populates="itens")
+    assistido: Mapped["Assistido"] = relationship(back_populates="itens")
+
+class Coleta(db):
+    __tablename__ = "coleta"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    data_hora: Mapped[datetime] = mapped_column()
+    instituicao_id: Mapped[int] = mapped_column(ForeignKey("instituicao.id"))
+    doador_id: Mapped[Optional[int]] = mapped_column(ForeignKey("doador.id"))
+    itens: Mapped[List["Item"]] = relationship()
+
+class Entrega(db):
+    __tablename__ = "entrega"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    data_hora: Mapped[datetime] = mapped_column()
+    instituicao_id: Mapped[int] = mapped_column(ForeignKey("instituicao.id"))
+    assistido_id: Mapped[Optional[int]] = mapped_column(ForeignKey("assistido.id"))
+    itens: Mapped[List["Item"]] = relationship()
