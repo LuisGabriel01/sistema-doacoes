@@ -22,7 +22,7 @@ e rode o git clone dentro dela (pra mudar de pasta veja as [instruções pro Win
 git clone https://github.com/LuisGabriel01/sistema-doacoes
 ```
 
-Mudar para a pasta do projeto com:
+Depois disso mudar para a pasta do projeto com:
 
 ```console
 cd sistema-doacoes
