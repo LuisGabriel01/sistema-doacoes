@@ -1,44 +1,64 @@
 # Projeto Integrador 1, DRP05, Grupo 3N9
 
 ## a primeira vez, criar o `venv`
+
 ```shell
 python3 -m venv .venv
 ```
 
 ## rodando o projeto
 
-### sempre que for mexer:
+### sempre que for mexer
+
 tem que fazer a ativação do ambiente virtual do Python (`venv`)
+
 #### no Linux
+
 ```shell
 source .venv/bin/activate
 ```
+
 #### no prompt do Windows
+
 ```shell
 C:\> .venv\Scripts\activate.bat
 ```
+
 ### instalar as dependências
+
 apenas uma vez, ou quando alterarmos as dependências
+
 ```shell
 pip install .
 ```
+
 as dependências ficam anotadas no arquivo `pyproject.toml`
 
 ### rodar o projeto
+
 com o `venv` ativado (por enquanto ainda não tem nada)
+
 ```shell
 flask run
 ```
 
 ### pra gerar o gráfico do ERM abaixo
-usamos a biblioteca `paracelsus`. as configurações estão no arquivo `pyproject.toml` também.
+
+usamos a biblioteca `paracelsus`. as configurações estão no arquivo
+`pyproject.toml` também.
+
 ```shell
 paracelsus graph
 ```
-o resultado é um código que gera um gráfico `mermaid`, da pra ver abrindo o código-fonte deste arquivo `README.md`
+
+o resultado é um código que gera um gráfico `mermaid`, da pra ver abrindo
+o código-fonte deste arquivo `README.md`
 
 ## esboço do ERM (Modelo Relacional de Entidades) do Banco de Dados
-### pessoal, ignorem a tabela `user`, ela tem todos esses campos pq é gerada automaticamente pela biblioteca.
+
+> **pessoal, ignorem a tabela `user` ela tem todos esses campos pq é gerada
+> automaticamente pela biblioteca**
+
 ```mermaid
 erDiagram
   assistido {
@@ -153,3 +173,5 @@ erDiagram
   user ||--o| roles_users : user_id
   role ||--o| roles_users : role_id
 ```
+
+.
