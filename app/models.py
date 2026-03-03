@@ -11,16 +11,28 @@ from app.database import db
 from flask_security.models import sqla as sqla
 
 
+class StatusItem(enum.Enum):
+    AGUARDA_COLETA = 'aguarda_coleta'
+    EM_ESTOQUE = 'em_estoque'
+    ENTREGUE = 'entregue'
+
+class TipoImovel(enum.Enum):
+    ALUGADO = 'alugado'
+    PROPRIO = 'proprio'
+
+class EstadoCivil(enum.Enum):
+    SOLTEIRO = 'solteiro'
+    CASADO = 'casado'
+    DIVORCIADO = 'divorciado'
+    VIUVO = 'viuvo'
+    UNIAO_ESTAVEL = 'uniao_estavel'
+
 class Role(db, sqla.FsRoleMixin):
     __tablename__ = 'role'
 
 class User(db, sqla.FsUserMixin):
     __tablename__ = "user"
 
-class StatusItem(enum.Enum):
-    AGUARDA_COLETA = 'aguarda_coleta'
-    EM_ESTOQUE = 'em_estoque'
-    ENTREGUE = 'entregue'
 
 class ContatoMixin:
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -43,7 +55,21 @@ class Assistido(db, ContatoMixin):
     __tablename__ = "assistido"
 
     itens: Mapped[List["Item"]] = relationship(back_populates="assistido")
-    quant_familia: Mapped[int] = mapped_column(default=1)
+    tipo_imovel: Mapped[TipoImovel] = mapped_column()
+    valor_aluguel: Mapped[int] = mapped_column()
+    estado_civil: Mapped[EstadoCivil] = mapped_column()
+    numero_adultos: Mapped[int] = mapped_column()
+    criancas_pequenas: Mapped[int] = mapped_column()
+    adolescentes: Mapped[int] = mapped_column()
+    doentes: Mapped[bool] = mapped_column()
+    bolsa_familia: Mapped[bool] = mapped_column()
+    apose: Mapped[bool] = mapped_column()
+    pensao: Mapped[bool] = mapped_column()
+    cesta_basica: Mapped[bool] = mapped_column()
+    atividade_remunerada: Mapped[int] = mapped_column()
+    renda: Mapped[float] = mapped_column()
+    crianca_escola: Mapped[bool] = mapped_column()
+    obs: Mapped[str] = mapped_column()
 
 class CategoriaItem(db):
     __tablename__ = "categoria_item"

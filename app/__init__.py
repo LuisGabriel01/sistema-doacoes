@@ -1,34 +1,14 @@
-import os
-
-from flask import Flask, render_template_string
+from flask import Flask, render_template_string, render_template
 from flask_security import Security, current_user, auth_required, hash_password, \
     SQLAlchemySessionUserDatastore, permissions_accepted
 from app.database import db_session, init_db
 from app.models import User, Role
 from app.seed import seed_db_from_json
-
+from app.config import Config
+from app.routes.home import homes
 app = Flask(__name__)
-app.config['DEBUG'] = True
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 
-# db.init_app(app)
-# fsqla.FsModels.set_db_info(db)
-#
-# @app.route("/")
-# def hello_world():
-#     return "<p>Hello, World!</p>"
-
-
-# Create app
-app = Flask(__name__)
-app.config['DEBUG'] = True
-
-# Generate a nice key using secrets.token_urlsafe()
-app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'pf9Wkove4IKEAXvy-cQkeDPhv9Cb3Ag-wyJILbq_dFw')
-# Generate a good salt for password hashing using: secrets.SystemRandom().getrandbits(128)
-app.config['SECURITY_PASSWORD_SALT'] = os.environ.get("SECURITY_PASSWORD_SALT", '146585145368132386173505678016728509634')
-# Don't worry if email has findable domain
-app.config["SECURITY_EMAIL_VALIDATOR_ARGS"] = {"check_deliverability": False}
+app.config.from_object(Config)
 
 # manage sessions per request - make sure connections are closed and returned
 app.teardown_appcontext(lambda exc: db_session.close())
@@ -45,18 +25,6 @@ def seed_db():
     else:
         print('banco ja contem dados, para começar do zero apague o arquivo test.db')
 
-# Views
-@app.route("/")
-@auth_required()
-def home():
-    return render_template_string('Hello {{current_user.email}}!')
-
-@app.route("/user")
-@auth_required()
-@permissions_accepted("user-read")
-def user_home():
-    return render_template_string("Hello {{ current_user.email }} you are a user!")
-
 # one time setup
 with app.app_context():
     init_db()
@@ -69,6 +37,8 @@ with app.app_context():
         security.datastore.create_user(email="test@me.com",
         password=hash_password("password"), roles=["user"])
     db_session.commit()
+
+app.register_blueprint(homes)
 
 if __name__ == '__main__':
     # run application (can also use flask run)
