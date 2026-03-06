@@ -122,16 +122,10 @@ class DoacaoMixin:
 class Coleta(db, DoacaoMixin):
     __tablename__ = "coleta"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    data_hora: Mapped[datetime] = mapped_column()
-    instituicao_id: Mapped[int] = mapped_column(ForeignKey("instituicao.id"))
     doador_id: Mapped[Optional[int]] = mapped_column(ForeignKey("doador.id"))
 
 
 class Entrega(db, DoacaoMixin):
     __tablename__ = "entrega"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    data_hora: Mapped[datetime] = mapped_column()
-    instituicao_id: Mapped[int] = mapped_column(ForeignKey("instituicao.id"))
     assistido_id: Mapped[Optional[int]] = mapped_column(ForeignKey("assistido.id"))
