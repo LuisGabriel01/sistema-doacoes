@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "nome": "João da Silva",
+    "endereco": "Rua das Flores, 456",
+    "email": "joao.silva@email.com",
+    "telefone": "(11) 99876-5432"
+  },
+  {
+    "id": 2,
+    "nome": "Maria Oliveira",
+    "endereco": "Av. Brasil, 789",
+    "email": "maria.oliveira@email.com",
+    "telefone": "(11) 98765-4321"
+  },
+  {
+    "id": 3,
+    "nome": "Pedro Santos",
+    "endereco": "Rua Pau Brasil, 234",
+    "email": "pedro.santos@email.com",
+    "telefone": "(11) 97654-3210"
+  },
+  {
+    "id": 4,
+    "nome": "Ana Costa",
+    "endereco": "Rua das Palmeiras, 567",
+    "email": "ana.costa@email.com",
+    "telefone": "(11) 96543-2109"
+  },
+  {
+    "id": 5,
+    "nome": "Carlos Ferreira",
+    "endereco": "Rua do Comércio, 890",
+    "email": "carlos.ferreira@email.com",
+    "telefone": "(11) 95432-1098"
+  }
+]

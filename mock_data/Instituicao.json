@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nome": "Associação Bom Pastor",
+    "endereco": "Rua São João, 100",
+    "email": "contato@bompastor.org.br",
+    "telefone": "(11) 3333-1000"
+  },
+  {
+    "id": 2,
+    "nome": "Fundação Ajuda Solidária",
+    "endereco": "Av. Brasil, 500",
+    "email": "fundacao.ajuda@email.com",
+    "telefone": "(11) 3333-2000"
+  },
+  {
+    "id": 3,
+    "nome": "Instituto Esperança Viva",
+    "endereco": "Rua da Paz, 250",
+    "email": "esperanca.viva@instituicao.org",
+    "telefone": "(11) 3333-3000"
+  }
+]
