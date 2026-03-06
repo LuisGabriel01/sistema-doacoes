@@ -12,23 +12,27 @@ from flask_security.models import sqla as sqla
 
 
 class StatusItem(enum.Enum):
-    AGUARDA_COLETA = 'aguarda_coleta'
-    EM_ESTOQUE = 'em_estoque'
-    ENTREGUE = 'entregue'
+    AGUARDA_COLETA = "aguarda_coleta"
+    EM_ESTOQUE = "em_estoque"
+    ENTREGUE = "entregue"
+
 
 class TipoImovel(enum.Enum):
-    ALUGADO = 'alugado'
-    PROPRIO = 'proprio'
+    ALUGADO = "alugado"
+    PROPRIO = "proprio"
+
 
 class EstadoCivil(enum.Enum):
-    SOLTEIRO = 'solteiro'
-    CASADO = 'casado'
-    DIVORCIADO = 'divorciado'
-    VIUVO = 'viuvo'
-    UNIAO_ESTAVEL = 'uniao_estavel'
+    SOLTEIRO = "solteiro"
+    CASADO = "casado"
+    DIVORCIADO = "divorciado"
+    VIUVO = "viuvo"
+    UNIAO_ESTAVEL = "uniao_estavel"
+
 
 class Role(db, sqla.FsRoleMixin):
-    __tablename__ = 'role'
+    __tablename__ = "role"
+
 
 class User(db, sqla.FsUserMixin):
     __tablename__ = "user"
@@ -41,15 +45,18 @@ class ContatoMixin:
     email: Mapped[str] = mapped_column()
     telefone: Mapped[str] = mapped_column()
 
+
 class Instituicao(db, ContatoMixin):
     __tablename__ = "instituicao"
 
     itens: Mapped[List["Item"]] = relationship(back_populates="instituicao")
 
+
 class Doador(db, ContatoMixin):
     __tablename__ = "doador"
 
     itens: Mapped[List["Item"]] = relationship(back_populates="doador")
+
 
 class Assistido(db, ContatoMixin):
     __tablename__ = "assistido"
@@ -71,11 +78,13 @@ class Assistido(db, ContatoMixin):
     crianca_escola: Mapped[bool] = mapped_column()
     obs: Mapped[str] = mapped_column()
 
+
 class CategoriaItem(db):
     __tablename__ = "categoria_item"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     nome: Mapped[str] = mapped_column(unique=True)
+
 
 class NomeItem(db):
     __tablename__ = "nome_item"
@@ -83,6 +92,7 @@ class NomeItem(db):
     id: Mapped[int] = mapped_column(primary_key=True)
     nome: Mapped[str] = mapped_column(unique=True)
     categoria_id: Mapped[int] = mapped_column(ForeignKey("categoria_item.id"))
+
 
 class Item(db):
     __tablename__ = "item"
@@ -101,20 +111,27 @@ class Item(db):
     instituicao: Mapped["Instituicao"] = relationship(back_populates="itens")
     assistido: Mapped["Assistido"] = relationship(back_populates="itens")
 
-class Coleta(db):
+
+class DoacaoMixin:
+    id: Mapped[int] = mapped_column(primary_key=True)
+    data_hora: Mapped[datetime] = mapped_column()
+    instituicao_id: Mapped[int] = mapped_column(ForeignKey("instituicao.id"))
+    itens: Mapped[List["Item"]] = relationship()
+
+
+class Coleta(db, DoacaoMixin):
     __tablename__ = "coleta"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     data_hora: Mapped[datetime] = mapped_column()
     instituicao_id: Mapped[int] = mapped_column(ForeignKey("instituicao.id"))
     doador_id: Mapped[Optional[int]] = mapped_column(ForeignKey("doador.id"))
-    itens: Mapped[List["Item"]] = relationship()
 
-class Entrega(db):
+
+class Entrega(db, DoacaoMixin):
     __tablename__ = "entrega"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     data_hora: Mapped[datetime] = mapped_column()
     instituicao_id: Mapped[int] = mapped_column(ForeignKey("instituicao.id"))
     assistido_id: Mapped[Optional[int]] = mapped_column(ForeignKey("assistido.id"))
-    itens: Mapped[List["Item"]] = relationship()
