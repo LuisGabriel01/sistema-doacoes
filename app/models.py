@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import List, Optional
 
 from sqlalchemy import ForeignKey, CheckConstraint
-from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import Mapped, declared_attr
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 
@@ -116,7 +116,8 @@ class DoacaoMixin:
     id: Mapped[int] = mapped_column(primary_key=True)
     data_hora: Mapped[datetime] = mapped_column()
     instituicao_id: Mapped[int] = mapped_column(ForeignKey("instituicao.id"))
-    itens: Mapped[List["Item"]] = relationship()
+
+    # itens: Mapped[List["Item"]] = relationship()
 
 
 class Coleta(db, DoacaoMixin):
