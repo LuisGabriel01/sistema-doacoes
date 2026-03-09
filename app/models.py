@@ -12,22 +12,22 @@ from flask_security.models import sqla as sqla
 
 
 class StatusItem(enum.Enum):
-    AGUARDA_COLETA = "aguarda_coleta"
-    EM_ESTOQUE = "em_estoque"
-    ENTREGUE = "entregue"
+    AGUARDA_COLETA = "AGUARDA_COLETA"
+    EM_ESTOQUE = "EM_ESTOQUE"
+    ENTREGUE = "ENTREGUE"
 
 
 class TipoImovel(enum.Enum):
-    ALUGADO = "alugado"
-    PROPRIO = "proprio"
+    ALUGADO = "ALUGADO"
+    PROPRIO = "PROPRIO"
 
 
 class EstadoCivil(enum.Enum):
-    SOLTEIRO = "solteiro"
-    CASADO = "casado"
-    DIVORCIADO = "divorciado"
-    VIUVO = "viuvo"
-    UNIAO_ESTAVEL = "uniao_estavel"
+    SOLTEIRO = "SOLTEIRO"
+    CASADO = "CASADO"
+    DIVORCIADO = "DIVORCIADO"
+    VIUVO = "VIUVO"
+    UNIAO_ESTAVEL = "UNIAO_ESTAVEL"
 
 
 class Role(db, sqla.FsRoleMixin):

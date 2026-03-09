@@ -25,12 +25,12 @@ def seed_db_from_json(db_session: scoped_session[Session]):
                 line["data_hora"] = datetime.fromisoformat(line["data_hora"])
                 # print(line, line["data_hora"])
 
-            print(line)
+            # print(line)
             row = model(**line)
             db_session.add(row)
-        # print(*db_session.execute(select(model)).all())
         db_session.commit()
-        # print(*db_session.execute(select(model)).all())
+        print(db_session.execute(select(model)).all())
+
 
     # # if filename is None:
     # filename = "mock_data.json"
