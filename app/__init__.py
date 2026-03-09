@@ -1,13 +1,13 @@
 from datetime import datetime
 from flask import Flask, render_template_string, render_template
-from flask_security import (
-    current_user,
-    auth_required,
-    hash_password,
-    SQLAlchemySessionUserDatastore,
-    permissions_accepted,
-)
+# from flask_security import (
+#     current_user,
+#     auth_required,
+#     permissions_accepted,
+# )
 from flask_security.core import Security
+from flask_security.utils import hash_password
+from flask_security.datastore import SQLAlchemySessionUserDatastore
 
 from app.database import db_session, init_db
 from app.models import User, Role
@@ -34,18 +34,15 @@ def seed_db():
         # Create a user and role to test with
         security.datastore.find_or_create_role(
             name="user", 
-            id='1', 
-            description='regular user',
-            update_datetime=datetime.now(),
             permissions={"user-read", "user-write"}
         )
         db_session.commit()
+
         if not security.datastore.find_user(email="test@me.com"):
             security.datastore.create_user(
                 email="test@me.com", 
                 password=hash_password("password"), 
-                # roles=["user"],
-
+                roles=["user"],
             )
         db_session.commit()
 
