@@ -6,9 +6,8 @@ from sqlalchemy import ForeignKey, CheckConstraint
 from sqlalchemy.orm import Mapped, declared_attr
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-
-from app.database import db
-from flask_security.models import sqla as sqla
+from sqlalchemy.orm import declarative_base
+from flask_security.models import sqla
 
 
 class StatusItem(enum.Enum):
@@ -29,12 +28,14 @@ class EstadoCivil(enum.Enum):
     VIUVO = "VIUVO"
     UNIAO_ESTAVEL = "UNIAO_ESTAVEL"
 
+Base = declarative_base()
+sqla.FsModels.set_db_info(base_model=Base)
 
-class Role(db, sqla.FsRoleMixin):
+class Role(Base, sqla.FsRoleMixin):
     __tablename__ = "role"
 
 
-class User(db, sqla.FsUserMixin):
+class User(Base, sqla.FsUserMixin):
     __tablename__ = "user"
 
 
@@ -45,20 +46,23 @@ class ContatoMixin:
     email: Mapped[str] = mapped_column()
     telefone: Mapped[str] = mapped_column()
 
+    def __repr__(self) -> str:
+        return f'table={self.__class__.__name__}, id={self.id}, nome={self.nome}\n'
 
-class Instituicao(db, ContatoMixin):
+
+class Instituicao(Base, ContatoMixin):
     __tablename__ = "instituicao"
 
     itens: Mapped[List["Item"]] = relationship(back_populates="instituicao")
 
 
-class Doador(db, ContatoMixin):
+class Doador(Base, ContatoMixin):
     __tablename__ = "doador"
 
     itens: Mapped[List["Item"]] = relationship(back_populates="doador")
 
 
-class Assistido(db, ContatoMixin):
+class Assistido(Base, ContatoMixin):
     __tablename__ = "assistido"
 
     itens: Mapped[List["Item"]] = relationship(back_populates="assistido")
@@ -79,14 +83,14 @@ class Assistido(db, ContatoMixin):
     obs: Mapped[str] = mapped_column()
 
 
-class CategoriaItem(db):
+class CategoriaItem(Base):
     __tablename__ = "categoria_item"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     nome: Mapped[str] = mapped_column(unique=True)
 
 
-class NomeItem(db):
+class NomeItem(Base):
     __tablename__ = "nome_item"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -94,14 +98,13 @@ class NomeItem(db):
     categoria_id: Mapped[int] = mapped_column(ForeignKey("categoria_item.id"))
 
 
-class Item(db):
+class Item(Base):
     __tablename__ = "item"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     nome_id: Mapped[int] = mapped_column(ForeignKey("nome_item.id"))
     coleta_id: Mapped[Optional[int]] = mapped_column(ForeignKey("coleta.id"))
     entrega_id: Mapped[Optional[int]] = mapped_column(ForeignKey("entrega.id"))
-    status: Mapped[StatusItem] = mapped_column(default=StatusItem.AGUARDA_COLETA)
 
     doador_id: Mapped[Optional[int]] = mapped_column(ForeignKey("doador.id"))
     instituicao_id: Mapped[Optional[int]] = mapped_column(ForeignKey("instituicao.id"))
@@ -110,6 +113,8 @@ class Item(db):
     doador: Mapped["Doador"] = relationship(back_populates="itens")
     instituicao: Mapped["Instituicao"] = relationship(back_populates="itens")
     assistido: Mapped["Assistido"] = relationship(back_populates="itens")
+
+    status: Mapped[StatusItem] = mapped_column(default=StatusItem.AGUARDA_COLETA)
 
 
 class DoacaoMixin:
@@ -120,13 +125,13 @@ class DoacaoMixin:
     # itens: Mapped[List["Item"]] = relationship()
 
 
-class Coleta(db, DoacaoMixin):
+class Coleta(Base, DoacaoMixin):
     __tablename__ = "coleta"
 
     doador_id: Mapped[Optional[int]] = mapped_column(ForeignKey("doador.id"))
 
 
-class Entrega(db, DoacaoMixin):
+class Entrega(Base, DoacaoMixin):
     __tablename__ = "entrega"
 
     assistido_id: Mapped[Optional[int]] = mapped_column(ForeignKey("assistido.id"))

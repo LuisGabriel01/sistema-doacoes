@@ -1,17 +1,15 @@
+import json
+from datetime import datetime
+
 from sqlalchemy import select
 from sqlalchemy.orm import Session, scoped_session
 from flask_security.models import sqla
 
-from datetime import datetime
-
-# from app.models import Assistido
-import app.models as models
-from app.database import db
-import json
+from app.database import Base
 
 
 def seed_db_from_json(db_session: scoped_session[Session]):
-    for model in db.__subclasses__():
+    for model in Base.__subclasses__():
         if issubclass(model, sqla.FsRoleMixin) or issubclass(model, sqla.FsUserMixin):
             continue
         name = model.__name__
