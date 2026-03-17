@@ -1,4 +1,6 @@
+from pathlib import Path
 from flask import Flask
+from sqlalchemy_utils import database_exists
 # from flask import render_template_string, render_template
 # from flask_security import (
 #     current_user,
@@ -29,6 +31,10 @@ security = Security(app, user_datastore)
 
 @app.cli.command("seed_mock")
 def seed_mock():
+    db_file = Path(Config.DATABASE_FILENAME)
+    if database_exists(Config.SQLALCHEMY_DATABASE_URI):
+        raise(FileExistsError(f'Arquivo do banco de dados existe em {db_file.absolute()}'))
+
     with app.app_context():
         init_db()
         # Create a user and role to test with

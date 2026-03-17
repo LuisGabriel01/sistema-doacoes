@@ -6,9 +6,12 @@ from sqlalchemy.orm import Session, scoped_session
 from flask_security.models import sqla
 
 from app.database import Base
+from app.config import Config
+
 
 
 def seed_mock_from_json(db_session: scoped_session[Session]):
+
     for model in Base.__subclasses__():
         if issubclass(model, sqla.FsRoleMixin) or issubclass(model, sqla.FsUserMixin):
             continue
@@ -16,18 +19,14 @@ def seed_mock_from_json(db_session: scoped_session[Session]):
         filename = f"mock_data/{name}.json"
         with open(filename) as f:
             data = json.load(f)
-            # print(data)
         for line in data:
-            # print(line, type(line))
             if "data_hora" in line.keys():
                 line["data_hora"] = datetime.fromisoformat(line["data_hora"])
-                # print(line, line["data_hora"])
 
-            # print(line)
             row = model(**line)
             db_session.add(row)
         db_session.commit()
-        print(db_session.execute(select(model)).all())
+        # print(db_session.execute(select(model)).all())
 
 
     # # if filename is None:
