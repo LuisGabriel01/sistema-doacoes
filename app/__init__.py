@@ -11,7 +11,7 @@ from flask_security.datastore import SQLAlchemySessionUserDatastore
 
 from app.database import db_session, init_db
 from app.models import User, Role
-from app.seed import seed_db_from_json
+from app.seed import seed_mock_from_json
 from app.config import Config
 from app.routes.home import homes
 
@@ -27,8 +27,8 @@ user_datastore = SQLAlchemySessionUserDatastore(db_session, User, Role)
 security = Security(app, user_datastore)
 
 
-@app.cli.command("seed_db")
-def seed_db():
+@app.cli.command("seed_mock")
+def seed_mock():
     with app.app_context():
         init_db()
         # Create a user and role to test with
@@ -46,7 +46,7 @@ def seed_db():
             )
         db_session.commit()
 
-        seed_db_from_json(db_session)
+        seed_mock_from_json(db_session)
         print("populando banco de dados a partir do json")
 
 

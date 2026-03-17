@@ -8,7 +8,7 @@ from flask_security.models import sqla
 from app.database import Base
 
 
-def seed_db_from_json(db_session: scoped_session[Session]):
+def seed_mock_from_json(db_session: scoped_session[Session]):
     for model in Base.__subclasses__():
         if issubclass(model, sqla.FsRoleMixin) or issubclass(model, sqla.FsUserMixin):
             continue
