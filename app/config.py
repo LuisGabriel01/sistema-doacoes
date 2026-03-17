@@ -4,6 +4,7 @@ class Config:
     DEBUG = True
     DATABASE_FILENAME = 'project.db'
     SQLALCHEMY_DATABASE_URI = f'sqlite:///{DATABASE_FILENAME}'
+    MOCK_DIR = 'mock_data'
 
     # Generate a nice key using secrets.token_urlsafe()
     SECRET_KEY = os.environ.get("SECRET_KEY", 'pf9Wkove4IKEAXvy-cQkeDPhv9Cb3Ag-wyJILbq_dFw')
