@@ -23,7 +23,7 @@ def seed_mock_users_roles(db_session: scoped_session[Session], security: Securit
              users = json.load(f)
         for user in users:
             user['password'] = hash_password(user['password'])
-            if not security.datastore.find_user(email="test@me.com"):
+            if not security.datastore.find_user(email=user['email']):
                 security.datastore.create_user(**user)
         db_session.commit()
 
