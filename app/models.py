@@ -28,8 +28,10 @@ class EstadoCivil(enum.Enum):
     VIUVO = "VIUVO"
     UNIAO_ESTAVEL = "UNIAO_ESTAVEL"
 
+
 Base = declarative_base()
 sqla.FsModels.set_db_info(base_model=Base)
+
 
 class Role(Base, sqla.FsRoleMixin):
     __tablename__ = "role"
@@ -43,11 +45,11 @@ class ContatoMixin:
     id: Mapped[int] = mapped_column(primary_key=True)
     nome: Mapped[str] = mapped_column(unique=True)
     endereco: Mapped[str] = mapped_column()
-    email: Mapped[str] = mapped_column()
+    email: Mapped[Optional[str]] = mapped_column()
     telefone: Mapped[str] = mapped_column()
 
     def __repr__(self) -> str:
-        return f'table={self.__class__.__name__}, id={self.id}, nome={self.nome}\n'
+        return f"table={self.__class__.__name__}, id={self.id}, nome={self.nome}\n"
 
 
 class Instituicao(Base, ContatoMixin):
@@ -66,21 +68,21 @@ class Assistido(Base, ContatoMixin):
     __tablename__ = "assistido"
 
     itens: Mapped[List["Item"]] = relationship(back_populates="assistido")
-    tipo_imovel: Mapped[TipoImovel] = mapped_column()
-    valor_aluguel: Mapped[int] = mapped_column()
-    estado_civil: Mapped[EstadoCivil] = mapped_column()
-    numero_adultos: Mapped[int] = mapped_column()
-    criancas_pequenas: Mapped[int] = mapped_column()
-    adolescentes: Mapped[int] = mapped_column()
-    doentes: Mapped[bool] = mapped_column()
-    bolsa_familia: Mapped[bool] = mapped_column()
-    apose: Mapped[bool] = mapped_column()
-    pensao: Mapped[bool] = mapped_column()
-    cesta_basica: Mapped[bool] = mapped_column()
-    atividade_remunerada: Mapped[int] = mapped_column()
-    renda: Mapped[float] = mapped_column()
-    crianca_escola: Mapped[bool] = mapped_column()
-    obs: Mapped[str] = mapped_column()
+    tipo_imovel: Mapped[Optional[TipoImovel]] = mapped_column()
+    valor_aluguel: Mapped[Optional[int]] = mapped_column()
+    estado_civil: Mapped[Optional[EstadoCivil]] = mapped_column()
+    numero_adultos: Mapped[Optional[int]] = mapped_column()
+    criancas_pequenas: Mapped[Optional[int]] = mapped_column()
+    adolescentes: Mapped[Optional[int]] = mapped_column()
+    doentes: Mapped[Optional[bool]] = mapped_column()
+    bolsa_familia: Mapped[Optional[bool]] = mapped_column()
+    apose: Mapped[Optional[bool]] = mapped_column()
+    pensao: Mapped[Optional[bool]] = mapped_column()
+    cesta_basica: Mapped[Optional[bool]] = mapped_column()
+    atividade_remunerada: Mapped[Optional[int]] = mapped_column()
+    renda: Mapped[Optional[float]] = mapped_column()
+    crianca_escola: Mapped[Optional[bool]] = mapped_column()
+    obs: Mapped[Optional[str]] = mapped_column()
 
 
 class CategoriaItem(Base):

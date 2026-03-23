@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST" action="/registro">
+        {{ form.csrf_token }}
+        <p>
+            {{ form.nome.label }}
+            {{ form.nome(size=50) }}
+            {% if form.nome.errors %}
+                {% for error in form.nome.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>
+            {{ form.endereco.label }}
+            {{ form.endereco(size=100) }}
+            {% if form.endereco.errors %}
+                {% for error in form.endereco.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        {# <p>
+            {{ form.email.label }}
+            {{ form.email(size=50) }}
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p> #}
+        <p>
+            {{ form.telefone.label }}
+            {{ form.telefone(size=20) }}
+            {% if form.telefone.errors %}
+                {% for error in form.telefone.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        {# <p>
+            {{ form.tipo_imovel.label }}
+            {{ form.tipo_imovel() }}
+            {% if form.tipo_imovel.errors %}
+                {% for error in form.tipo_imovel.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>
+            {{ form.valor_aluguel.label }}
+            {{ form.valor_aluguel(size=10) }}
+            {% if form.valor_aluguel.errors %}
+                {% for error in form.valor_aluguel.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>
+            {{ form.estado_civil.label }}
+            {{ form.estado_civil() }}
+            {% if form.estado_civil.errors %}
+                {% for error in form.estado_civil.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>
+            {{ form.numero_adultos.label }}
+            {{ form.numero_adultos(size=5) }}
+            {% if form.numero_adultos.errors %}
+                {% for error in form.numero_adultos.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>
+            {{ form.criancas_pequenas.label }}
+            {{ form.criancas_pequenas(size=5) }}
+            {% if form.criancas_pequenas.errors %}
+                {% for error in form.criancas_pequenas.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>
+            {{ form.adolescentes.label }}
+            {{ form.adolescentes(size=5) }}
+            {% if form.adolescentes.errors %}
+                {% for error in form.adolescentes.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>
+            {{ form.doentes.label }}
+            {{ form.doentes() }}
+        </p>
+        <p>
+            {{ form.bolsa_familia.label }}
+            {{ form.bolsa_familia() }}
+        </p>
+        <p>
+            {{ form.aposentado.label }}
+            {{ form.aposentado() }}
+        </p>
+        <p>
+            {{ form.pensao.label }}
+            {{ form.pensao() }}
+        </p>
+        <p>
+            {{ form.cesta_basica.label }}
+            {{ form.cesta_basica() }}
+        </p>
+        <p>
+            {{ form.atividade_remunerada.label }}
+            {{ form.atividade_remunerada(size=5) }}
+            {% if form.atividade_remunerada.errors %}
+                {% for error in form.atividade_remunerada.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>
+            {{ form.renda.label }}
+            {{ form.renda(size=15, step=0.01) }}
+            {% if form.renda.errors %}
+                {% for error in form.renda.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>
+            {{ form.crianca_escola.label }}
+            {{ form.crianca_escola() }}
+        </p>
+        <p>
+            {{ form.observacoes.label }}
+            {{ form.observacoes(rows=4, cols=50) }}
+        </p> #}
+        <input type="submit" value="Salvar">
+    </form>
+{% endblock %}

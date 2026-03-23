@@ -8,6 +8,8 @@ dependencies = [
   "sqlalchemy_utils",
   "paracelsus",
   "argon2-cffi",
+  "flask-wtf",
+  "WTForms",
 ]
 
 [tool.setuptools]

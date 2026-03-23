@@ -17,6 +17,7 @@ from app.models import User, Role
 from app.seed import seed_mock_from_json, seed_mock_users_roles
 from app.config import Config
 from app.routes.home import homes
+from app.routes.registro import registros
 
 
 app = Flask(__name__)
@@ -41,6 +42,7 @@ def seed_mock():
         print("populando banco de dados a partir do json")
 
 app.register_blueprint(homes)
+app.register_blueprint(registros)
 
 if __name__ == "__main__":
     # run application (can also use flask run)
