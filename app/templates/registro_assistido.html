@@ -21,7 +21,7 @@
                 {% endfor %}
             {% endif %}
         </p>
-        {# <p>
+        <p>
             {{ form.email.label }}
             {{ form.email(size=50) }}
             {% if form.email.errors %}
@@ -29,7 +29,7 @@
                     <span class="error">{{ error }}</span>
                 {% endfor %}
             {% endif %}
-        </p> #}
+        </p> 
         <p>
             {{ form.telefone.label }}
             {{ form.telefone(size=20) }}
@@ -39,7 +39,7 @@
                 {% endfor %}
             {% endif %}
         </p>
-        {# <p>
+        <p>
             {{ form.tipo_imovel.label }}
             {{ form.tipo_imovel() }}
             {% if form.tipo_imovel.errors %}
@@ -138,7 +138,7 @@
         <p>
             {{ form.observacoes.label }}
             {{ form.observacoes(rows=4, cols=50) }}
-        </p> #}
+        </p> 
         <input type="submit" value="Salvar">
     </form>
 {% endblock %}
