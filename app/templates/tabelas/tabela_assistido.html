@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+</head>
+<body>
+    {% set columns = ['nome', 'email', 'telefone', 'atividade_remunerada', 'renda', 'criancas_pequenas'] %}
+    <table border="1">
+
+        <tr>
+            {% for column_name in columns %}
+                <th>{{ column_name | capitalize }}</th>
+            {% endfor %}
+        </tr>
+
+        {% for row in query %}
+            <tr> 
+                {% for column_name in columns %}
+                    <td>{{ row|attr(column_name) }}</td> 
+                {% endfor %}
+            </tr> 
+        {% endfor %}
+    </table>
+</body>
+</html>

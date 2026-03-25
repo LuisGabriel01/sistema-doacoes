@@ -18,6 +18,7 @@ from app.seed import seed_mock_from_json, seed_mock_users_roles
 from app.config import Config
 from app.routes.home import homes
 from app.routes.registro import registros
+from app.routes.tabela import tabelas
 
 
 app = Flask(__name__)
@@ -43,6 +44,7 @@ def seed_mock():
 
 app.register_blueprint(homes)
 app.register_blueprint(registros)
+app.register_blueprint(tabelas)
 
 if __name__ == "__main__":
     # run application (can also use flask run)
