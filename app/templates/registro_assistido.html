@@ -5,7 +5,7 @@
         {{ form.csrf_token }}
         <p>
             {{ form.nome.label }}
-            {{ form.nome(size=50) }}
+            {{ form.nome(size=50, disabled=disabled) }}
             {% if form.nome.errors %}
                 {% for error in form.nome.errors %}
                     <span class="error">{{ error }}</span>

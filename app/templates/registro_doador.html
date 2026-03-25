@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST" action="/registro_doador">
+        {{ form.csrf_token }}
+        <p>
+            {{ form.nome.label }}
+            {{ form.nome(size=50) }}
+            {{ field(class='form-control', disabled=disabled)}}
+            {% if form.nome.errors %}
+                {% for error in form.nome.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>
+            {{ form.endereco.label }}
+            {{ form.endereco(size=100) }}
+            {% if form.endereco.errors %}
+                {% for error in form.endereco.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>
+            {{ form.email.label }}
+            {{ form.email(size=50) }}
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p> 
+        <p>
+            {{ form.telefone.label }}
+            {{ form.telefone(size=20) }}
+            {% if form.telefone.errors %}
+                {% for error in form.telefone.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        <input type="submit" value="Salvar">
+    </form>
+{% endblock %}
