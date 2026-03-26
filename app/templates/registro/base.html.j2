@@ -22,8 +22,8 @@
         <p>
             {{ form[field.name].label }}
             {{ form[field.name](size=field.size, step=field.step, disabled=disabled) }}
-            {% if form.nome.errors %}
-                {% for error in form.nome.errors %}
+            {% if form[field.name].errors %}
+                {% for error in form[field.name].errors %}
                     <span class="error">{{ error }}</span>
                 {% endfor %}
             {% endif %}
