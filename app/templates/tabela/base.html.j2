@@ -30,7 +30,7 @@
                 {
                     {{ columns[0] }}: {
                         name: "{{ row|attr(columns[0]) }}",
-                        url: "{{ url_for('registro.registro', table=table, id=row.id)}}",
+                        url: "{{ url_for('registro.ficha', table=table, id=row.id)}}",
                     },
                     {% for column_name in columns[1:] %}
                         {{ column_name }}: "{{ row|attr(column_name) }}",
