@@ -9,6 +9,7 @@
 </head>
 <body>
     <a href="{{ url_for('home.home')}}"><h2>Voltar à Tela Inicial</h2></a>
+    {% block botao_adicionar %}{% endblock %}
     <div id="table"></div>
     <script>
         new gridjs.Grid({

@@ -2,3 +2,7 @@
 {% set title = 'Assistidos' %}
 {% set columns = ['nome', 'email', 'telefone', 'atividade_remunerada', 'renda', 'criancas_pequenas'] %}
 {% set table = 'assistido' %}
+
+{% block botao_adicionar %}
+    <input type="button" value="Adicionar {{ table }}" onclick="location.href='{{ url_for('registro.ficha', id="0", edit="true", **request.view_args) }}'">
+{% endblock %}
