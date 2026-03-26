@@ -16,12 +16,17 @@
 <body>
     <hr>
     <div class="content">
+    {% if read_only %}
+        <input type="button" value="Editar" onclick="location.href='{{ url_for(request.endpoint, edit="true", **request.view_args) }}'">
+    {% else %}
+        <input type="button" value="Cancelar" onclick="location.href='{{ url_for(request.endpoint, **request.view_args) }}'">
+    {% endif%}
     <form method="POST" action="{{ url_for(request.endpoint, **request.view_args) }}">
         {{ form.csrf_token }}
         {% for field in fields %}
         <p>
             {{ form[field.name].label }}
-            {{ form[field.name](size=field.size, step=field.step, disabled=disabled) }}
+            {{ form[field.name](size=field.size, step=field.step, disabled=read_only) }}
             {% if form[field.name].errors %}
                 {% for error in form[field.name].errors %}
                     <span class="error">{{ error }}</span>
