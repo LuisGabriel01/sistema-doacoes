@@ -12,7 +12,7 @@ models = {
     'doador': Doador,
 }
 
-@tabelas.route('/tabela/<table>', methods= ['GET'])
+@tabelas.route('/registro/<table>', methods= ['GET'])
 @auth_required()
 def tabela(table):
     model = models[table]
