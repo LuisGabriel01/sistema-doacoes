@@ -13,13 +13,13 @@
     "adolescentes": 0,
     "doentes": true,
     "bolsa_familia": true,
-    "apose": false,
+    "aposentado": false,
     "pensao": false,
     "cesta_basica": true,
     "atividade_remunerada": 0,
     "renda": 1200.50,
     "crianca_escola": true,
-    "obs": "Mãe solteira, trabalha como diarista. Filha com necessidade especial."
+    "observacoes": "Mãe solteira, trabalha como diarista. Filha com necessidade especial."
   },
   {
     "id": 2,
@@ -35,13 +35,13 @@
     "adolescentes": 0,
     "doentes": false,
     "bolsa_familia": false,
-    "apose": false,
+    "aposentado": false,
     "pensao": true,
     "cesta_basica": false,
     "atividade_remunerada": 1,
     "renda": 2500.00,
     "crianca_escola": false,
-    "obs": "Trabalha como vendedor. Recebe pensão alimentícia."
+    "observacoes": "Trabalha como vendedor. Recebe pensão alimentícia."
   },
   {
     "id": 3,
@@ -57,13 +57,13 @@
     "adolescentes": 1,
     "doentes": true,
     "bolsa_familia": true,
-    "apose": true,
+    "aposentado": true,
     "pensao": false,
     "cesta_basica": true,
     "atividade_remunerada": 0,
     "renda": 1800.00,
     "crianca_escola": true,
-    "obs": "Aposentada, sofre de hipertensão. Neto adolescente na escola."
+    "observacoes": "Aposentada, sofre de hipertensão. Neto adolescente na escola."
   },
   {
     "id": 4,
@@ -79,13 +79,13 @@
     "adolescentes": 1,
     "doentes": false,
     "bolsa_familia": true,
-    "apose": false,
+    "aposentado": false,
     "pensao": false,
     "cesta_basica": true,
     "atividade_remunerada": 1,
     "renda": 3200.00,
     "crianca_escola": true,
-    "obs": "CASADO, três filhos. Ambos trabalham."
+    "observacoes": "CASADO, três filhos. Ambos trabalham."
   },
   {
     "id": 5,
@@ -101,13 +101,13 @@
     "adolescentes": 0,
     "doentes": true,
     "bolsa_familia": true,
-    "apose": false,
+    "aposentado": false,
     "pensao": false,
     "cesta_basica": true,
     "atividade_remunerada": 1,
     "renda": 2100.00,
     "crianca_escola": false,
-    "obs": "Em união estável. Quatro filhos menores, todos em idade pré-escolar."
+    "observacoes": "Em união estável. Quatro filhos menores, todos em idade pré-escolar."
   },
   {
     "id": 6,
@@ -123,13 +123,13 @@
     "adolescentes": 2,
     "doentes": false,
     "bolsa_familia": false,
-    "apose": false,
+    "aposentado": false,
     "pensao": true,
     "cesta_basica": false,
     "atividade_remunerada": 1,
     "renda": 4500.00,
     "crianca_escola": true,
-    "obs": "Divorciado, guarda dos dois filhos adolescentes."
+    "observacoes": "Divorciado, guarda dos dois filhos adolescentes."
   },
   {
     "id": 7,
@@ -145,13 +145,13 @@
     "adolescentes": 0,
     "doentes": true,
     "bolsa_familia": true,
-    "apose": false,
+    "aposentado": false,
     "pensao": true,
     "cesta_basica": true,
     "atividade_remunerada": 0,
     "renda": 1500.00,
     "crianca_escola": false,
-    "obs": "Mãe solo, trabalha em home office. Filha com necessidades especiais."
+    "observacoes": "Mãe solo, trabalha em home office. Filha com necessidades especiais."
   },
   {
     "id": 8,
@@ -167,12 +167,12 @@
     "adolescentes": 1,
     "doentes": false,
     "bolsa_familia": false,
-    "apose": false,
+    "aposentado": false,
     "pensao": false,
     "cesta_basica": false,
     "atividade_remunerada": 2,
     "renda": 6800.00,
     "crianca_escola": true,
-    "obs": "Casado, filho único em fase universitária."
+    "observacoes": "Casado, filho único em fase universitária."
   }
 ]

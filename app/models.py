@@ -76,13 +76,13 @@ class Assistido(Base, ContatoMixin):
     adolescentes: Mapped[Optional[int]] = mapped_column()
     doentes: Mapped[Optional[bool]] = mapped_column()
     bolsa_familia: Mapped[Optional[bool]] = mapped_column()
-    apose: Mapped[Optional[bool]] = mapped_column()
+    aposentado: Mapped[Optional[bool]] = mapped_column()
     pensao: Mapped[Optional[bool]] = mapped_column()
     cesta_basica: Mapped[Optional[bool]] = mapped_column()
     atividade_remunerada: Mapped[Optional[int]] = mapped_column()
     renda: Mapped[Optional[float]] = mapped_column()
     crianca_escola: Mapped[Optional[bool]] = mapped_column()
-    obs: Mapped[Optional[str]] = mapped_column()
+    observacoes: Mapped[Optional[str]] = mapped_column()
 
 
 class CategoriaItem(Base):
