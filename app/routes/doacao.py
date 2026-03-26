@@ -5,7 +5,7 @@ from flask_wtf import FlaskForm
 from sqlalchemy import select
 from app.forms import AssistidoForm, DoadorForm, ColetaForm
 from app.database import db_session
-from app.models import Assistido, Doador, Coleta
+from app.models import Assistido, Doador, Coleta, Instituicao
 
 doacao_blueprint = Blueprint('doacao',__name__)
 
@@ -24,14 +24,22 @@ tables = {
 @auth_required()
 def tabela(table):
     model = tables[table]['model']
-    # stmt = select(model)
-    # query = db_session.scalars(stmt).all()
-    query = db_session.query(model).select_from()
+    stmt = (
+    select(
+        Coleta.id, 
+        Coleta.data_hora, 
+        Doador.nome.label("nome_doador"), 
+        Instituicao.nome.label("nome_instituicao")
+    )
+    .join(Doador, Coleta.doador_id == Doador.id)
+    .join(Instituicao, Coleta.instituicao_id == Instituicao.id)
+    )
+    query = db_session.execute(stmt).all()
     try:
         doador_id = request.args['doador']
     except KeyError:
         pass
-    print(query)
+    print(query[0])
     return render_template(f'tabela/{table}.html.j2',query=query)
 
 # id==0 para incluir novo?

@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template, redirect, request, url_for
+from flask import Blueprint, render_template, redirect, request, url_for, render_template_string
 from flask_security.decorators import auth_required
 from flask_wtf import FlaskForm
 
 from sqlalchemy import select
 from app.forms import AssistidoForm, DoadorForm, ColetaForm
 from app.database import db_session
-from app.models import Assistido, Doador, Coleta
+from app.models import Assistido, Doador, Coleta, Instituicao
 
 registro_blueprint = Blueprint('registro',__name__)
 
@@ -20,7 +20,7 @@ tables = {
     },
     'coleta' : {
         'form': ColetaForm,
-        'model': Coleta
+        'model': Coleta,
     }
 }
 
@@ -30,7 +30,7 @@ def tabela(table):
     model = tables[table]['model']
     stmt = select(model)
     query = db_session.scalars(stmt).all()
-    print(query)
+    print(type(query))
     return render_template(f'tabela/{table}.html.j2',query=query)
 
 # id==0 para incluir novo?
