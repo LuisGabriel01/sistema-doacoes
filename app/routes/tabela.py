@@ -8,7 +8,8 @@ from app.models import Assistido, Doador, Coleta, Entrega, Instituicao, Item
 tabelas = Blueprint('tabelas',__name__)
 
 models = {
-    'assistido': Assistido
+    'assistido': Assistido,
+    'doador': Doador,
 }
 
 @tabelas.route('/tabela/<table>', methods= ['GET'])

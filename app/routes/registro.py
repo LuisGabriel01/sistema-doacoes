@@ -13,12 +13,12 @@ tables = {
     'assistido': {
         'form': AssistidoForm,
         'model': Assistido,
-        'template': 'registro_assistido.html'
+        'template': 'registro/assistido.html'
     },
     'doador': {
         'form': AssistidoForm,
         'model': Assistido,
-        'template': 'registro_assistido.html'
+        'template': 'registro/assistido.html'
     }
 }
 
