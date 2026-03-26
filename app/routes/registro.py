@@ -3,9 +3,9 @@ from flask_security.decorators import auth_required
 from flask_wtf import FlaskForm
 
 from sqlalchemy import select
-from app.forms import AssistidoForm, DoadorForm
+from app.forms import AssistidoForm, DoadorForm, ColetaForm
 from app.database import db_session
-from app.models import Assistido, Doador
+from app.models import Assistido, Doador, Coleta
 
 registro_blueprint = Blueprint('registro',__name__)
 
@@ -17,6 +17,10 @@ tables = {
     'doador': {
         'form': DoadorForm,
         'model': Doador,
+    },
+    'coleta' : {
+        'form': ColetaForm,
+        'model': Coleta
     }
 }
 

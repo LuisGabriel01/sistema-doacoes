@@ -56,3 +56,6 @@ class AssistidoForm(ContatoForm, FlaskForm):
     renda = DecimalField("Renda", validators=[validators.InputRequired()], places=2)
     crianca_escola = BooleanField("Crianças na Escola")
     observacoes = StringField("Observações", validators=[validators.Optional()])
+
+class ColetaForm(FlaskForm):
+    pass
