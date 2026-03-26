@@ -5,35 +5,46 @@ from flask_wtf import FlaskForm
 from sqlalchemy import select
 from app.forms import AssistidoForm, DoadorForm, ColetaForm
 from app.database import db_session
-from app.models import Assistido, Doador, Coleta, Instituicao
+from app.models import Assistido, Doador, Coleta, Instituicao, Entrega
 
 doacao_blueprint = Blueprint('doacao',__name__)
 
 tables = {
     'coleta' : {
         'form': ColetaForm,
-        'model': Coleta
+        'model': Coleta,
+        'pessoa': Doador,
+        'nome': 'nome_doador'
     },
-    # 'entrega' : {
-    #     'form': ColetaForm,
-    #     'model': Coleta
-    # }
+    'entrega' : {
+        'form': ColetaForm,
+        'model': Coleta,
+        'pessoa': Assistido,
+        'nome': 'nome_assistido'
+    }
 }
 
 @doacao_blueprint.route('/doacao/<table>', methods= ['GET'])
 @auth_required()
 def tabela(table):
     model = tables[table]['model']
+    pessoa = tables[table]['pessoa']
+    nome = tables[table]['nome']
+    try:
+        pessoa_id = model.doador_id
+    except AttributeError:
+        pessoa_id = model.assistido_id
     stmt = (
     select(
-        Coleta.id, 
-        Coleta.data_hora, 
-        Doador.nome.label("nome_doador"), 
+        model.id, 
+        model.data_hora, 
+        pessoa.nome.label(nome),
         Instituicao.nome.label("nome_instituicao")
     )
-    .join(Doador, Coleta.doador_id == Doador.id)
-    .join(Instituicao, Coleta.instituicao_id == Instituicao.id)
+    .join(pessoa, pessoa_id == pessoa.id)
+    .join(Instituicao, model.instituicao_id == Instituicao.id)
     )
+
     query = db_session.execute(stmt).all()
     try:
         doador_id = request.args['doador']
