@@ -10,7 +10,7 @@ from wtforms import (
 from app.models import TipoImovel, EstadoCivil
 
 
-class AssistidoForm(FlaskForm):
+class ContatoForm(FlaskForm):
     nome = StringField(
         "Nome", validators=[validators.DataRequired(), validators.Length(min=3)]
     )
@@ -19,6 +19,19 @@ class AssistidoForm(FlaskForm):
         "Email", validators=[validators.DataRequired(), validators.Email()]
     )
     telefone = StringField("Telefone", validators=[validators.DataRequired()])
+
+class DoadorForm(ContatoForm):
+    pass
+
+class AssistidoForm(ContatoForm, FlaskForm):
+    # nome = StringField(
+    #     "Nome", validators=[validators.DataRequired(), validators.Length(min=3)]
+    # )
+    # endereco = StringField("Endereço", validators=[validators.DataRequired()])
+    # email = StringField(
+    #     "Email", validators=[validators.DataRequired(), validators.Email()]
+    # )
+    # telefone = StringField("Telefone", validators=[validators.DataRequired()])
     tipo_imovel = SelectField(
         "Tipo de Imóvel",
         choices=[(e.value, e.value) for e in TipoImovel],
