@@ -12,58 +12,47 @@ from app.models import TipoImovel, EstadoCivil
 
 class ContatoForm(FlaskForm):
     nome = StringField(
-        "Nome", validators=[validators.DataRequired(), validators.Length(min=3)]
+        "Nome", validators=[validators.InputRequired(), validators.Length(min=3)]
     )
-    endereco = StringField("Endereço", validators=[validators.DataRequired()])
+    endereco = StringField("Endereço", validators=[validators.InputRequired()])
     email = StringField(
-        "Email", validators=[validators.DataRequired(), validators.Email()]
+        "Email", validators=[validators.InputRequired(), validators.Email()]
     )
-    telefone = StringField("Telefone", validators=[validators.DataRequired()])
+    telefone = StringField("Telefone", validators=[validators.InputRequired()])
 
 class DoadorForm(ContatoForm):
     pass
 
 class AssistidoForm(ContatoForm, FlaskForm):
-    # nome = StringField(
-    #     "Nome", validators=[validators.DataRequired(), validators.Length(min=3)]
-    # )
-    # endereco = StringField("Endereço", validators=[validators.DataRequired()])
-    # email = StringField(
-    #     "Email", validators=[validators.DataRequired(), validators.Email()]
-    # )
-    # telefone = StringField("Telefone", validators=[validators.DataRequired()])
     tipo_imovel = SelectField(
         "Tipo de Imóvel",
         choices=[(e.value, e.value) for e in TipoImovel],
-        validators=[validators.DataRequired()],
+        validators=[validators.InputRequired()],
     )
     valor_aluguel = IntegerField("Valor do Aluguel", validators=[validators.Optional()])
     estado_civil = SelectField(
         "Estado Civil",
         choices=[(e.value, e.value) for e in EstadoCivil],
-        validators=[validators.DataRequired()],
+        validators=[validators.InputRequired()],
     )
     numero_adultos = IntegerField(
         "Número de Adultos",
-        validators=[validators.DataRequired(), validators.NumberRange(min=0)],
+        validators=[validators.InputRequired(), validators.NumberRange(min=0)],
     )
     criancas_pequenas = IntegerField(
         "Crianças Pequenas",
-        validators=[validators.DataRequired(), validators.NumberRange(min=0)],
+        validators=[validators.InputRequired(), validators.NumberRange(min=0)],
     )
     adolescentes = IntegerField(
         "Adolescentes",
-        validators=[validators.DataRequired(), validators.NumberRange(min=0)],
+        validators=[validators.InputRequired(), validators.NumberRange(min=0)],
     )
     doentes = BooleanField("Possui Doentes")
     bolsa_familia = BooleanField("Bolsa Família")
     aposentado = BooleanField("Aposentado")
     pensao = BooleanField("Recebe Pensão")
     cesta_basica = BooleanField("Recebe Cesta Básica")
-    atividade_remunerada = IntegerField(
-        "Atividade Remunerada",
-        validators=[validators.Optional(), validators.NumberRange(min=0)],
-    )
-    renda = DecimalField("Renda", validators=[validators.DataRequired()], places=2)
+    atividade_remunerada = BooleanField("Atividade Remunerada")
+    renda = DecimalField("Renda", validators=[validators.InputRequired()], places=2)
     crianca_escola = BooleanField("Crianças na Escola")
     observacoes = StringField("Observações", validators=[validators.Optional()])
