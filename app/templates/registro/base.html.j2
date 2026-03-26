@@ -16,7 +16,21 @@
 <body>
     <hr>
     <div class="content">
-        {% block content %} {% endblock %}
+    <form method="POST" action="{{ url_for(request.endpoint, **request.view_args) }}">
+        {{ form.csrf_token }}
+        {% for field in fields %}
+        <p>
+            {{ form[field.name].label }}
+            {{ form[field.name](size=field.size, step=field.step, disabled=disabled) }}
+            {% if form.nome.errors %}
+                {% for error in form.nome.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        {% endfor %}
+        <input type="submit" value="Salvar">
+    </form>
     </div>
 </body>
 </html>

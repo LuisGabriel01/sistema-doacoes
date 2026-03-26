@@ -1,18 +1,95 @@
-{% extends 'registro/base.html' %}
+{% extends 'registro/base.html.j2' %}
+{% set title = 'Registro de Assistido' %}
+{% set fields = [
+        {
+            'name': 'nome',
+            'size': 50,
+        },
+        {
+            'name': 'endereco',
+            'size': 100,
+        },
+        {
+            'name': 'email',
+            'size': 50,
+        },
+        {
+            'name': 'telefone',
+            'size': 20,
+        },
+        {
+            'name': 'tipo_imovel',
+        },
+        {
+            'name': 'valor_aluguel',
+            'size': 10,
+        },
+        {
+            'name': 'estado_civil',
+        },
+        {
+            'name': 'numero_adultos',
+            'size': 5,
+        },
+        {
+            'name': 'criancas_pequenas',
+            'size': 5,
+        },
+        {
+            'name': 'adolescentes',
+            'size': 5,
+        },
+        {
+            'name': 'doentes',
+        },
+        {
+            'name': 'bolsa_familia',
+        },
+        {
+            'name': 'aposentado',
+        },
+        {
+            'name': 'pensao',
+        },
+        {
+            'name': 'cesta_basica',
+        },
+        {
+            'name': 'atividade_remunerada',
+            'size': 5,
+        },
+        {
+            'name': 'renda',
+            'size': 15,
+            'step': 0.01,
+        },
+        {
+            'name': 'crianca_escola',
+        },
+        {
+            'name': 'observacoes',
+            'rows': 4,
+            'cols': 50,
+        },
+    ]
+%}
+{% set table = 'assistido' %}
 
-{% block content %}
+{# {% block content %}
     <form method="POST" action="{{ url_for(request.endpoint, **request.view_args) }}">
         {{ form.csrf_token }}
+        {% for field in fields %}
         <p>
-            {{ form.nome.label }}
-            {{ form.nome(size=50, disabled=disabled) }}
+            {{ form[field.name].label }}
+            {{ form[field.name](size=field.size, step=field.step, disabled=disabled) }}
             {% if form.nome.errors %}
                 {% for error in form.nome.errors %}
                     <span class="error">{{ error }}</span>
                 {% endfor %}
             {% endif %}
         </p>
-        <p>
+        {% endfor %} #}
+        {# <p>
             {{ form.endereco.label }}
             {{ form.endereco(size=100) }}
             {% if form.endereco.errors %}
@@ -138,7 +215,7 @@
         <p>
             {{ form.observacoes.label }}
             {{ form.observacoes(rows=4, cols=50) }}
-        </p> 
-        <input type="submit" value="Salvar">
+        </p>  #}
+        {# <input type="submit" value="Salvar">
     </form>
-{% endblock %}
+{% endblock %} #}
