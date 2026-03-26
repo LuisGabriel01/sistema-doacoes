@@ -18,4 +18,4 @@ def tabela(table):
     stmt = select(model)
     query = db_session.scalars(stmt).all()
     print(query)
-    return render_template(f'tabelas/tabela_{table}.html',query=query)
+    return render_template(f'tabelas/tabela_{table}.html.j2',query=query)

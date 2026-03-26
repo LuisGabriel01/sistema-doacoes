@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+    <title>{{ title }}</title>
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 </head>
 <body>
     <div id="table"></div>
     <script>
-        {% set columns = ['nome', 'email', 'telefone', 'atividade_remunerada', 'renda', 'criancas_pequenas'] %}
         new gridjs.Grid({
         columns: [
                 {
@@ -30,7 +29,7 @@
                 {
                     {{ columns[0] }}: {
                         name: "{{ row|attr(columns[0]) }}",
-                        url: "{{ url_for('registro.registro', table='assistido', id=row.id)}}",
+                        url: "{{ url_for('registro.registro', table=table, id=row.id)}}",
                     },
                     {% for column_name in columns[1:] %}
                         {{ column_name }}: "{{ row|attr(column_name) }}",
