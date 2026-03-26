@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="POST" action="/registro">
+    <form method="POST" action="{{ url_for(request.endpoint, **request.view_args) }}">
         {{ form.csrf_token }}
         <p>
             {{ form.nome.label }}
