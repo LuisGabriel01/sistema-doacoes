@@ -11,5 +11,8 @@
             <li>ID: {{user.id}} | Email: {{user.email}}</li>
         {% endfor %}
     </ul>
+    <h1>Atalhos:</h1>
+    <a href="{{ url_for('tabelas.tabela', table='assistido')}}"><h2>Registro de Assistidos</h2></a>
+    <a href="{{ url_for('tabelas.tabela', table='doador')}}"><h2>Registro de Doadores</h2></a>
 </body>
 </html>
