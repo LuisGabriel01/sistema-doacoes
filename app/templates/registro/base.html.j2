@@ -14,6 +14,7 @@
     </style>
 </head>
 <body>
+    <a href="{{ url_for('home.home')}}"><h2>Voltar à Tela Inicial</h2></a>
     <hr>
     <div class="content">
     {% if read_only %}
@@ -34,7 +35,9 @@
             {% endif %}
         </p>
         {% endfor %}
-        <input type="submit" value="Salvar">
+        {% if not read_only %}
+            <input type="submit" value="Salvar">
+        {% endif%}
     </form>
     </div>
 </body>

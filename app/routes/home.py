@@ -15,4 +15,4 @@ def home():
     qt = db_session.scalars(test).all()
     print(qt[0].__class__.__table__.columns.keys())
     print(query[0].__class__.__table__.columns.keys())
-    return render_template('index.html',query=query)
+    return render_template('index.html.j2',query=query)
