@@ -54,4 +54,17 @@ def ficha(table, id):
                 return redirect(request.url)
             else:
                 print('erro validacao')
+    else:
+        if request.method == 'POST':
+            print(form.errors)
+            if form.validate_on_submit():
+                print('validado!!!')
+                data = form.data
+                data.pop('csrf_token')
+                db_session.add(model(**data))
+                db_session.commit()
+                return redirect(request.url)
+            else:
+                print('erro validacao')
+
     return render_template(f'ficha/{table}.html.j2', form=form, read_only=read_only)
