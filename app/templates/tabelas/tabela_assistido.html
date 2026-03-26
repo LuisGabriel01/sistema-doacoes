@@ -4,9 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users</title>
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 </head>
 <body>
-    {% set columns = ['nome', 'email', 'telefone', 'atividade_remunerada', 'renda', 'criancas_pequenas'] %}
+    <div id="table"></div>
+    <script>
+        {% set columns = ['nome', 'email', 'telefone', 'atividade_remunerada', 'renda', 'criancas_pequenas'] %}
+        new gridjs.Grid({
+        columns: [
+            {% for column_name in columns %}
+                {
+                    id: '{{ column_name }}',
+                    name: '{{ column_name | capitalize }}',
+                },
+            {% endfor %}
+        ],
+        data: [
+            {% for row in query %}
+                {
+                    {% for column_name in columns %}
+                        {{ column_name }}: "{{ row|attr(column_name) }}",
+                    {% endfor %}
+                },
+            {% endfor %}
+        ],
+        search: true,
+        sort: true,
+        pagination: true,
+        }).render(document.getElementById('table'))
+
+    </script>
+    <!-- {% set columns = ['nome', 'email', 'telefone', 'atividade_remunerada', 'renda', 'criancas_pequenas'] %}
     <table border="1">
 
         <tr>
@@ -22,6 +51,6 @@
                 {% endfor %}
             </tr> 
         {% endfor %}
-    </table>
+    </table> -->
 </body>
 </html>
