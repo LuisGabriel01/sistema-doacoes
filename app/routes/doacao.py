@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template, redirect, request, url_for
+from flask import Blueprint, render_template, redirect, request, url_for, render_template_string
 from flask_security.decorators import auth_required
 from flask_wtf import FlaskForm
 
 from sqlalchemy import select
 from app.forms import AssistidoForm, DoadorForm, ColetaForm
 from app.database import db_session
-from app.models import Assistido, Doador, Coleta, Instituicao, Entrega
+from app.models import Assistido, Doador, Coleta, Instituicao, Entrega, Item, NomeItem
 
 doacao_blueprint = Blueprint('doacao',__name__)
 
@@ -18,7 +18,7 @@ tables = {
     },
     'entrega' : {
         'form': ColetaForm,
-        'model': Coleta,
+        'model': Entrega,
         'pessoa': Assistido,
         'nome': 'nome_assistido'
     }
@@ -57,38 +57,28 @@ def tabela(table):
 @doacao_blueprint.route('/doacao/<table>/<int:id>', methods=['GET', 'POST'])
 @auth_required()
 def ficha(table, id):
-    model = tables[table]['model']
-    form = tables[table]['form']()
-    read_only = True
-    try:
-        if request.args['edit'] == 'true':
-            read_only = False
-    except KeyError:
-        pass
-    if id != 0:
-        query = db_session.query(model).get(id)
-        form = tables[table]['form'](obj=query)
-        if request.method == 'POST':
-            print(form.errors)
-            if form.validate_on_submit():
-                print('validado!!!')
-                form.populate_obj(query)
-                db_session.add(query)
-                db_session.commit()
-                return redirect(request.url)
-            else:
-                print('erro validacao')
-    else:
-        if request.method == 'POST':
-            print(form.errors)
-            if form.validate_on_submit():
-                print('validado!!!')
-                data = form.data
-                data.pop('csrf_token')
-                db_session.add(model(**data))
-                db_session.commit()
-                return redirect(request.url)
-            else:
-                print('erro validacao')
+    nome_coluna = f'{table}_id' 
+    coluna = getattr(Item, nome_coluna)
+    
+    stmt = (
+        select(
+            Item.id,
+            NomeItem.nome.label("nome_do_item"),
+            Doador.nome.label("nome_doador"),
+            Instituicao.nome.label("nome_instituicao"),
+            Assistido.nome.label("nome_assistido"),
+            Item.entrega_id.label("id_entrega"),
+            Item.coleta_id.label("id_coleta") 
+        )
+        .join(NomeItem, Item.nome_id == NomeItem.id)
+        .outerjoin(Doador, Item.doador_id == Doador.id)
+        .outerjoin(Instituicao, Item.instituicao_id == Instituicao.id)
+        .outerjoin(Assistido, Item.assistido_id == Assistido.id)
+        .where(coluna == id)
+    )
 
-    return render_template(f'ficha/{table}.html.j2', form=form, read_only=read_only)
+    query = db_session.execute(stmt).all()
+    
+    print(query)
+    
+    return render_template(f'tabela/item.html.j2',query=query)
