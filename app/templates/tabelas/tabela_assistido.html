@@ -13,17 +13,26 @@
         {% set columns = ['nome', 'email', 'telefone', 'atividade_remunerada', 'renda', 'criancas_pequenas'] %}
         new gridjs.Grid({
         columns: [
-            {% for column_name in columns %}
                 {
-                    id: '{{ column_name }}',
-                    name: '{{ column_name | capitalize }}',
+                    id: '{{ columns[0] }}',
+                    name: '{{ columns[0] | capitalize }}',
+                    formatter: (cell) => gridjs.html(`<a href="${cell.url}">${cell.name}</a>`)
                 },
-            {% endfor %}
+                {% for column_name in columns[1:] %}
+                    {
+                        id: '{{ column_name }}',
+                        name: '{{ column_name | capitalize }}',
+                    },
+                {% endfor %}
         ],
         data: [
             {% for row in query %}
                 {
-                    {% for column_name in columns %}
+                    {{ columns[0] }}: {
+                        name: "{{ row|attr(columns[0]) }}",
+                        url: "{{ url_for('registro.registro', table='assistido', id=row.id)}}",
+                    },
+                    {% for column_name in columns[1:] %}
                         {{ column_name }}: "{{ row|attr(column_name) }}",
                     {% endfor %}
                 },
