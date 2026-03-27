@@ -20,3 +20,7 @@
     ]
 %}
 {% set table = 'doador' %}
+
+{% block botao_ver_entregas %}
+    <input type="button" value="Ver Entregas" onclick="location.href='{{ url_for('doacao.tabela', table='coleta', doador=request.view_args['id']) }}'">
+{% endblock %}
