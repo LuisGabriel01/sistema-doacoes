@@ -34,6 +34,15 @@ def tabela(table):
         pessoa_id = model.doador_id
     except AttributeError:
         pessoa_id = model.assistido_id
+    filter_pessoa_id = None
+    try:
+        filter_pessoa_id = request.args['assistido']
+    except KeyError:
+        pass
+    try:
+        filter_pessoa_id = request.args['doador']
+    except KeyError:
+        pass
     stmt = (
     select(
         model.id, 
@@ -43,6 +52,7 @@ def tabela(table):
     )
     .join(pessoa, pessoa_id == pessoa.id)
     .join(Instituicao, model.instituicao_id == Instituicao.id)
+    .where(pessoa_id == filter_pessoa_id)
     )
 
     query = db_session.execute(stmt).all()
@@ -56,7 +66,7 @@ def tabela(table):
 # id==0 para incluir novo?
 @doacao_blueprint.route('/doacao/<table>/<int:id>', methods=['GET', 'POST'])
 @auth_required()
-def ficha(table, id):
+def ficha(table, id): 
     nome_coluna = f'{table}_id' 
     coluna = getattr(Item, nome_coluna)
     
