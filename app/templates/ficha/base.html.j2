@@ -32,6 +32,7 @@
             <input type="button" value="Cancelar" onclick="location.href='{{ url_for('registro.tabela', table=request.view_args["table"]) }}'">
         {% endif %}
     {% endif%}
+    {% block botao_ver_entregas %}{% endblock %}
     <form method="POST" action="{{ url_for(request.endpoint, **request.view_args) }}">
         {{ form.csrf_token }}
         {% for field in fields %}
