@@ -1,0 +1,22 @@
+{% extends 'ficha/base.html.j2' %}
+{% set title = 'Ficha de Entrega' %}
+{% set fields = [
+        {
+            'name': 'assistido_id',
+            'size': 50,
+        },
+        {
+            'name': 'id',
+            'size': 100,
+        },
+        {
+            'name': 'data_hora',
+            'size': 50,
+        },
+        {
+            'name': 'instituicao_id',
+            'size': 20,
+        },
+    ]
+%}
+{% set table = 'entrega' %}

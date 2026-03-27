@@ -31,8 +31,13 @@
                 {
                     {{ columns[0] }}: {
                         name: "{{ row|attr(columns[0]) }}",
-                        url: "{{ url_for('registro.ficha', table=table, id=row.id)}}",
-                    },
+                        {% if table in (doacao, assistido) %}
+                            url: "{{ url_for('registro.ficha', table=table, id=row.id)}}",
+                            },
+                        {% else %}
+                            url: "{{ url_for('doacao.ficha', table=table, id=row.id)}}",
+                            },
+                        {% endif %}
                     {% for column_name in columns[1:] %}
                         {{ column_name }}: "{{ row|attr(column_name) }}",
                     {% endfor %}
