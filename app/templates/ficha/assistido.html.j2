@@ -74,9 +74,6 @@
     ]
 %}
 {% set table = 'assistido' %}
-{% block botao_ver_entregas %}
-    <input type="button" value="Ver Entregas" onclick="location.href='{{ url_for('doacao.tabela', table='entrega', assistido=request.view_args['id']) }}'">
-{% endblock %}
 
 {# {% block content %}
     <form method="POST" action="{{ url_for(request.endpoint, **request.view_args) }}">
