@@ -34,7 +34,6 @@ def tabela(table):
         pessoa_id = model.doador_id
     except AttributeError:
         pessoa_id = model.assistido_id
-    filter_pessoa_id = None
     try:
         filter_pessoa_id = request.args['assistido']
     except KeyError:
@@ -52,8 +51,11 @@ def tabela(table):
     )
     .join(pessoa, pessoa_id == pessoa.id)
     .join(Instituicao, model.instituicao_id == Instituicao.id)
-    .where(pessoa_id == filter_pessoa_id)
     )
+    try:
+        stmt = stmt.where(pessoa_id == filter_pessoa_id)
+    except:
+        pass
 
     query = db_session.execute(stmt).all()
     try:
