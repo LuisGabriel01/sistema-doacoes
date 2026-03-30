@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Test</title>
+     <title>{{ title }}</title>
     <style>
         nav a {
             color: #d64161;
@@ -14,6 +14,7 @@
     </style>
 </head>
 <body>
+    <h1>{{ title }}</h1>
     {% set partes_url = request.path.strip('/').split('/') %}
     {% set url_voltar = '/' ~ (partes_url[:-1] | join('/')) %}
     <a href="{{ url_voltar }}" class="btn btn-secondary">Voltar</a>
@@ -32,7 +33,8 @@
             <input type="button" value="Cancelar" onclick="location.href='{{ url_for('registro.tabela', table=request.view_args["table"]) }}'">
         {% endif %}
     {% endif%}
-    {% block botao_ver_entregas %}{% endblock %}
+    {% block botao_ver_doacoes %}{% endblock %}
+    {% block botao_nova_doacao %}{% endblock %}
     <form method="POST" action="{{ url_for(request.endpoint, **request.view_args) }}">
         {{ form.csrf_token }}
         {% for field in fields %}

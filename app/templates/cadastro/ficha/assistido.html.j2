@@ -1,5 +1,15 @@
 {% extends 'cadastro/ficha/base.html.j2' %}
 {% set title = 'Ficha de Assistido' %}
+{% set table = 'assistido' %}
+
+{% block botao_ver_doacoes %}
+    <input type="button" value="Ver Entregas" onclick="location.href='{{ url_for('doacao.tabela_doacao', table='entrega', assistido=request.view_args['id']) }}'">
+{% endblock %}
+
+{% block botao_nova_doacao %}
+    <input type="button" value="Fazer Nova Entrega" onclick="location.href='{{ url_for('doacao.tabela_itens', id=0, table='entrega', assistido=request.view_args['id']) }}'">
+{% endblock %}
+
 {% set fields = [
         {
             'name': 'nome',
@@ -73,7 +83,3 @@
         },
     ]
 %}
-{% set table = 'assistido' %}
-{% block botao_ver_entregas %}
-    <input type="button" value="Ver Entregas" onclick="location.href='{{ url_for('doacao.tabela_doacao', table='entrega', assistido=request.view_args['id']) }}'">
-{% endblock %}
