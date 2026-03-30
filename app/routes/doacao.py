@@ -53,8 +53,8 @@ def tabela_doacao(table):
     .join(Instituicao, model.instituicao_id == Instituicao.id)
     )
     try:
-        stmt = stmt.where(pessoa_id == filter_pessoa_id)
-    except:
+        stmt = stmt.where(pessoa_id == filter_pessoa_id) # type: ignore
+    except UnboundLocalError:
         pass
 
     query = db_session.execute(stmt).all()
