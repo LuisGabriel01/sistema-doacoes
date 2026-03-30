@@ -11,7 +11,9 @@
     <h1>Doação: {{ title }}</h1>
     <a href="{{ url_for('home.home')}}"><h2>Voltar à Tela Inicial</h2></a>
     {# {% block botao_adicionar %}{% endblock %} #}
-    <input type="button" value="Adicionar Item" onclick="location.href='{{ url_for('doacao.tabela_escolher_item', **request.view_args) }}'">
+    {% if request.view_args['id'] %}
+        <input type="button" value="Adicionar Item" onclick="location.href='{{ url_for('doacao.tabela_escolher_item', **request.view_args) }}'">
+    {% endif %}
     <div id="table"></div>
     <script>
         new gridjs.Grid({
