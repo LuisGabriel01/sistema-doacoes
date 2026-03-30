@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 </head>
 <body>
+    <h1>Cadastro: {{ title }}</h1>
     <a href="{{ url_for('home.home')}}"><h2>Voltar à Tela Inicial</h2></a>
     <input type="button" value="Adicionar {{ table }}" onclick="location.href='{{ url_for('cadastro.ficha', id="0", edit="true", **request.view_args) }}'">
     <div id="table"></div>

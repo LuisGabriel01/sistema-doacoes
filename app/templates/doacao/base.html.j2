@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 </head>
 <body>
+    <h1>Doação: {{ title }}</h1>
     <a href="{{ url_for('home.home')}}"><h2>Voltar à Tela Inicial</h2></a>
     {% block botao_adicionar %}{% endblock %}
     <div id="table"></div>
@@ -31,13 +32,8 @@
                 {
                     {{ columns[0] }}: {
                         name: "{{ row|attr(columns[0]) }}",
-                        {% if table in (doacao, assistido) %}
-                            url: "{{ url_for('registro.ficha', table=table, id=row.id)}}",
-                            },
-                        {% else %}
-                            url: "{{ url_for('doacao.ficha', table=table, id=row.id)}}",
-                            },
-                        {% endif %}
+                        url: "{{ url_for('doacao.tabela_itens', table=table, id=row.id)}}",
+                        },
                     {% for column_name in columns[1:] %}
                         {{ column_name }}: "{{ row|attr(column_name) }}",
                     {% endfor %}
@@ -50,22 +46,5 @@
         }).render(document.getElementById('table'))
 
     </script>
-    <!-- {% set columns = ['nome', 'email', 'telefone', 'atividade_remunerada', 'renda', 'criancas_pequenas'] %}
-    <table border="1">
-
-        <tr>
-            {% for column_name in columns %}
-                <th>{{ column_name | capitalize }}</th>
-            {% endfor %}
-        </tr>
-
-        {% for row in query %}
-            <tr> 
-                {% for column_name in columns %}
-                    <td>{{ row|attr(column_name) }}</td> 
-                {% endfor %}
-            </tr> 
-        {% endfor %}
-    </table> -->
 </body>
 </html>

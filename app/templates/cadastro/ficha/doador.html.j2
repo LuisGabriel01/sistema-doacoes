@@ -1,4 +1,4 @@
-{% extends 'ficha/base.html.j2' %}
+{% extends 'cadastro/ficha/base.html.j2' %}
 {% set title = 'Ficha de Doador' %}
 {% set fields = [
         {
@@ -22,5 +22,5 @@
 {% set table = 'doador' %}
 
 {% block botao_ver_entregas %}
-    <input type="button" value="Ver Entregas" onclick="location.href='{{ url_for('doacao.tabela', table='coleta', doador=request.view_args['id']) }}'">
+    <input type="button" value="Ver coletas" onclick="location.href='{{ url_for('doacao.tabela_doacao', table='coleta', doador=request.view_args['id']) }}'">
 {% endblock %}

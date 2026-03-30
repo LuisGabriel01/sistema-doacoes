@@ -3,7 +3,7 @@ from flask_security.decorators import auth_required
 from flask_wtf import FlaskForm
 
 from sqlalchemy import select
-from app.forms import AssistidoForm, DoadorForm, ColetaForm
+from app.forms import AssistidoForm, DoadorForm, ColetaForm, EntregaForm
 from app.database import db_session
 from app.models import Assistido, Doador, Coleta, Instituicao, Entrega, Item, NomeItem
 
@@ -17,7 +17,7 @@ tables = {
         'nome': 'nome_doador'
     },
     'entrega' : {
-        'form': ColetaForm,
+        'form': EntregaForm,
         'model': Entrega,
         'pessoa': Assistido,
         'nome': 'nome_assistido'
@@ -26,7 +26,7 @@ tables = {
 
 @doacao_blueprint.route('/doacao/<table>', methods= ['GET'])
 @auth_required()
-def tabela(table):
+def tabela_doacao(table):
     model = tables[table]['model']
     pessoa = tables[table]['pessoa']
     nome = tables[table]['nome']
@@ -58,17 +58,13 @@ def tabela(table):
         pass
 
     query = db_session.execute(stmt).all()
-    try:
-        doador_id = request.args['doador']
-    except KeyError:
-        pass
     print(query[0])
-    return render_template(f'tabela/{table}.html.j2',query=query)
+    return render_template(f'doacao/{table}.html.j2',query=query)
 
 # id==0 para incluir novo?
 @doacao_blueprint.route('/doacao/<table>/<int:id>', methods=['GET', 'POST'])
 @auth_required()
-def ficha(table, id): 
+def tabela_itens(table, id): 
     nome_coluna = f'{table}_id' 
     coluna = getattr(Item, nome_coluna)
     
@@ -93,4 +89,4 @@ def ficha(table, id):
     
     print(query)
     
-    return render_template(f'tabela/item.html.j2',query=query)
+    return render_template(f'doacao/item.html.j2',query=query)

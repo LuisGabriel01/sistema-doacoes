@@ -59,3 +59,6 @@ class AssistidoForm(ContatoForm, FlaskForm):
 
 class ColetaForm(FlaskForm):
     pass
+
+class EntregaForm(FlaskForm):
+    pass
