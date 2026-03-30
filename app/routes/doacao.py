@@ -126,38 +126,33 @@ def tabela_adicionar_item(table, id):
     try:
         if table == 'coleta':
             pessoa_id = model.doador_id
-            filter_pessoa_id = request.args['doador']
+            filter_pessoa_id = 'doador_id'
         elif table == 'entrega':
             pessoa_id = model.assistido_id
-            filter_pessoa_id = request.args['assistido']
+            filter_pessoa_id = 'assistido_id'
     except (AttributeError, KeyError):
         pass
-    
-    # stmt = (
-    #     select(
-    #         Item.id,
-    #         NomeItem.nome.label("nome_do_item"),
-    #         Doador.nome.label("nome_doador"),
-    #         Instituicao.nome.label("nome_instituicao"),
-    #         Assistido.nome.label("nome_assistido"),
-    #         Item.entrega_id.label("id_entrega"),
-    #         Item.coleta_id.label("id_coleta") 
-    #     )
-    #     .join(NomeItem, Item.nome_id == NomeItem.id)
-    #     .outerjoin(Doador, Item.doador_id == Doador.id)
-    #     .outerjoin(Instituicao, Item.instituicao_id == Instituicao.id)
-    #     .outerjoin(Assistido, Item.assistido_id == Assistido.id)
-    #     .where(coluna == id)
-    # )
-    new_item = Item({
-        pessoa_id: filter_pessoa_id, # type: ignore
-        'nome_id': nome_id
-    })
+
+    stmt = (
+        select(
+            model.id,
+            pessoa_id.label('pessoa_id'), # type: ignore
+        )
+    )
 
     query = db_session.execute(stmt).all()
     
+    print(query[0]._fields)
     print(query)
-    return redirect(url_for('doacao.tabela_itens', **{'table': table, 'id': new_doacao.id, pessoa_id: filter_pessoa_id})) # type: ignore
+    new_item = Item(**{
+        filter_pessoa_id: query[0].pessoa_id, #type: ignore
+        'nome_id': nome_id,
+        f'{table}_id': id,
+    })
+    db_session.add(new_item)
+    db_session.commit()
+    
+    return redirect(url_for('doacao.tabela_itens', **{'table': table, 'id': id})) # type: ignore
 
 @doacao_blueprint.route('/doacao/<table>/<int:id>/escolher', methods=['GET', 'POST'])
 @auth_required()
