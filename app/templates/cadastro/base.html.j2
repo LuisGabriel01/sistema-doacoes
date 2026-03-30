@@ -12,20 +12,20 @@
     <input type="button" value="Adicionar {{ table }}" onclick="location.href='{{ url_for('cadastro.ficha', id="0", edit="true", **request.view_args) }}'">
     <div id="table"></div>
     <script>
-grid_columns = [
+        grid_columns = [
+            {
+                id: '{{ column_names[0] }}',
+                name: '{{ column_names[0] | capitalize }}',
+                formatter: (cell) => gridjs.html(`<a href="${cell.url}">${cell.name}</a>`)
+            },
+            {% for column_name in column_names[1:] %}
                 {
-                    id: '{{ column_names[0] }}',
-                    name: '{{ column_names[0] | capitalize }}',
-                    formatter: (cell) => gridjs.html(`<a href="${cell.url}">${cell.name}</a>`)
+                    id: '{{ column_name }}',
+                    name: '{{ column_name | capitalize }}',
                 },
-                {% for column_name in column_names[1:] %}
-                    {
-                        id: '{{ column_name }}',
-                        name: '{{ column_name | capitalize }}',
-                    },
-                {% endfor %}
-],
-data_columns = [
+            {% endfor %}
+        ],
+        data_columns = [
             {% for row in query %}
                 {
                     {{ column_names[0] }}: {
@@ -37,7 +37,7 @@ data_columns = [
                     {% endfor %}
                 },
             {% endfor %}
-]
+        ]
         new gridjs.Grid({
         columns: grid_columns,
         data: data_columns,
