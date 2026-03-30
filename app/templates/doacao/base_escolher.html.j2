@@ -11,15 +11,20 @@
     <h1>Doação: {{ title }}</h1>
     <a href="{{ url_for('home.home')}}"><h2>Voltar à Tela Inicial</h2></a>
     {# {% block botao_adicionar %}{% endblock %} #}
-    <input type="button" value="Adicionar Item" onclick="location.href='{{ url_for('doacao.tabela_escolher_item', **request.view_args) }}'">
+    {# <input type="button" value="Adicionar Item" onclick="location.href='{{ url_for('doacao.tabela_adicionar_item', **request.view_args) }}'"> #}
     <div id="table"></div>
     <script>
         new gridjs.Grid({
         columns: [
                 {
+                    id: 'adicionar',
+                    name: '',
+                    formatter: (cell) => gridjs.html(`<a href="${cell.url}">${cell.name}</a>`)
+                },
+                {
                     id: '{{ columns[0] }}',
                     name: '{{ columns[0] | capitalize }}',
-                    formatter: (cell) => gridjs.html(`<a href="${cell.url}">${cell.name}</a>`)
+                    {# formatter: (cell) => gridjs.html(`<a href="${cell.url}">${cell.name}</a>`) #}
                 },
                 {% for column_name in columns[1:] %}
                     {
@@ -31,9 +36,13 @@
         data: [
             {% for row in query %}
                 {
+                    adicionar: {
+                        name: 'Adicionar este item',
+                        url: "{{ url_for('doacao.tabela_adicionar_item', table=request.view_args['table'], id=request.view_args['id'], nome_item_id=row.id)}}",
+                    },
                     {{ columns[0] }}: {
                         name: "{{ row|attr(columns[0]) }}",
-                        url: "{{ url_for('doacao.tabela_itens', table=table, id=row.id)}}",
+                        {# url: "{{ url_for('doacao.tabela_itens', table=table, id=row.id)}}", #}
                         },
                     {% for column_name in columns[1:] %}
                         {{ column_name }}: "{{ row|attr(column_name) }}",
