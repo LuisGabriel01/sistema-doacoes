@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Test</title>
+    <style>
+        nav a {
+            color: #d64161;
+            font-size: 3em;
+            margin-left: 50px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    {% set partes_url = request.path.strip('/').split('/') %}
+    {% set url_voltar = '/' ~ (partes_url[:-1] | join('/')) %}
+    <a href="{{ url_voltar }}" class="btn btn-secondary">Voltar</a>
+    <a href="{{ url_for('home.home')}}"><h2>Voltar à Tela Inicial</h2></a>
+    <hr>
+    {% block botao_adicionar %}{% endblock %}
+            {# <h1>{{ request.view_args['id'] == 0 }}</h1> #}
+            {# <h1>{{ request.view_args }}</h1> #}
+    <div class="content">
+    {% if read_only %}
+        <input type="button" value="Editar" onclick="location.href='{{ url_for(request.endpoint, edit="true", **request.view_args) }}'">
+    {% else %}
+        {% if request.view_args['id'] != 0 %}
+            <input type="button" value="Cancelar" onclick="location.href='{{ url_for(request.endpoint, **request.view_args) }}'">
+        {% else %}
+            <input type="button" value="Cancelar" onclick="location.href='{{ url_for('registro.tabela', table=request.view_args["table"]) }}'">
+        {% endif %}
+    {% endif%}
+    {% block botao_ver_entregas %}{% endblock %}
+    <form method="POST" action="{{ url_for(request.endpoint, **request.view_args) }}">
+        {{ form.csrf_token }}
+        {% for field in fields %}
+        <p>
+            {{ form[field.name].label }}
+            {{ form[field.name](size=field.size, step=field.step, disabled=read_only) }}
+            {% if form[field.name].errors %}
+                {% for error in form[field.name].errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </p>
+        {% endfor %}
+        {% if not read_only %}
+            <input type="submit" value="Salvar">
+        {% endif%}
+    </form>
+    </div>
+</body>
+</html>

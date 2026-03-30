@@ -68,11 +68,7 @@ def tabela(table):
 # id==0 para incluir novo?
 @doacao_blueprint.route('/doacao/<table>/<int:id>', methods=['GET', 'POST'])
 @auth_required()
-<<<<<<< Updated upstream
 def ficha(table, id): 
-=======
-def ficha(table, id):
->>>>>>> Stashed changes
     nome_coluna = f'{table}_id' 
     coluna = getattr(Item, nome_coluna)
     

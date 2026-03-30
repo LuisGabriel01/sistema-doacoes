@@ -19,6 +19,7 @@ from app.config import Config
 from app.routes.home import homes
 from app.routes.registro import registro_blueprint
 from app.routes.doacao import doacao_blueprint
+from app.routes.cadastro import cadastro_blueprint
 # from app.routes.tabela import tabelas
 
 
@@ -45,6 +46,7 @@ def seed_mock():
 
 app.register_blueprint(homes)
 app.register_blueprint(registro_blueprint)
+app.register_blueprint(cadastro_blueprint)
 app.register_blueprint(doacao_blueprint)
 # app.register_blueprint(tabelas)
 

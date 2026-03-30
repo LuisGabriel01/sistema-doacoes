@@ -1,0 +1,26 @@
+{% extends 'ficha/base.html.j2' %}
+{% set title = 'Ficha de Doador' %}
+{% set fields = [
+        {
+            'name': 'nome',
+            'size': 50,
+        },
+        {
+            'name': 'endereco',
+            'size': 100,
+        },
+        {
+            'name': 'email',
+            'size': 50,
+        },
+        {
+            'name': 'telefone',
+            'size': 20,
+        },
+    ]
+%}
+{% set table = 'doador' %}
+
+{% block botao_ver_entregas %}
+    <input type="button" value="Ver Entregas" onclick="location.href='{{ url_for('doacao.tabela', table='coleta', doador=request.view_args['id']) }}'">
+{% endblock %}

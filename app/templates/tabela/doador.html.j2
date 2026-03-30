@@ -1,8 +1,0 @@
-{% extends 'tabela/base.html.j2' %}
-{% set title = 'Doadores' %}
-{% set columns = ['nome', 'email', 'telefone'] %}
-{% set table = 'doador' %}
-
-{% block botao_adicionar %}
-    <input type="button" value="Adicionar {{ table }}" onclick="location.href='{{ url_for('registro.ficha', id="0", edit="true", **request.view_args) }}'">
-{% endblock %}
