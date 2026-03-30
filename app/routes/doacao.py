@@ -31,16 +31,13 @@ def tabela_doacao(table):
     pessoa = tables[table]['pessoa']
     nome = tables[table]['nome']
     try:
-        pessoa_id = model.doador_id
-    except AttributeError:
-        pessoa_id = model.assistido_id
-    try:
-        filter_pessoa_id = request.args['assistido']
-    except KeyError:
-        pass
-    try:
-        filter_pessoa_id = request.args['doador']
-    except KeyError:
+        if table == 'coleta':
+            pessoa_id = model.doador_id
+            filter_pessoa_id = request.args['doador']
+        elif table == 'entrega':
+            pessoa_id = model.assistido_id
+            filter_pessoa_id = request.args['assistido']
+    except (AttributeError, KeyError):
         pass
     stmt = (
     select(
@@ -49,7 +46,7 @@ def tabela_doacao(table):
         pessoa.nome.label(nome),
         Instituicao.nome.label("nome_instituicao")
     )
-    .join(pessoa, pessoa_id == pessoa.id)
+    .join(pessoa, pessoa_id == pessoa.id) # type: ignore
     .join(Instituicao, model.instituicao_id == Instituicao.id)
     )
     try:
