@@ -7,3 +7,4 @@ uv.lock
 build
 opencode.json
 .ruff_cache
+.agents/

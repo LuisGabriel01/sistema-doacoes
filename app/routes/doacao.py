@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm
 from sqlalchemy import select
 from app.forms import AssistidoForm, DoadorForm, ColetaForm, EntregaForm
 from app.database import db_session
-from app.models import Assistido, Doador, Coleta, Instituicao, Entrega, Item, NomeItem
+from app.models import Assistido, Doador, Coleta, Instituicao, Entrega, Item, NomeItem, CategoriaItem
 
 doacao_blueprint = Blueprint('doacao',__name__)
 
@@ -115,3 +115,89 @@ def tabela_itens(table, id):
     print(query)
     
     return render_template(f'doacao/item.html.j2',query=query)
+
+@doacao_blueprint.route('/doacao/<table>/<int:id>/adicionar', methods=['GET', 'POST'])
+@auth_required()
+def tabela_adicionar_item(table, id): 
+    nome_coluna = f'{table}_id' 
+    coluna = getattr(Item, nome_coluna)
+    model = tables[table]['model']
+    nome_id = request.args['nome_item_id']
+    try:
+        if table == 'coleta':
+            pessoa_id = model.doador_id
+            filter_pessoa_id = 'doador_id'
+        elif table == 'entrega':
+            pessoa_id = model.assistido_id
+            filter_pessoa_id = 'assistido_id'
+    except (AttributeError, KeyError):
+        pass
+
+    stmt = (
+        select(
+            model.id,
+            pessoa_id.label('pessoa_id'), # type: ignore
+        )
+    )
+
+    query = db_session.execute(stmt).all()
+    
+    print(query[0]._fields)
+    print(query)
+    new_item = Item(**{
+        filter_pessoa_id: query[0].pessoa_id, #type: ignore
+        'nome_id': nome_id,
+        f'{table}_id': id,
+    })
+    db_session.add(new_item)
+    db_session.commit()
+    
+    return redirect(url_for('doacao.tabela_itens', **{'table': table, 'id': id})) # type: ignore
+
+@doacao_blueprint.route('/doacao/<table>/<int:id>/escolher', methods=['GET', 'POST'])
+@auth_required()
+def tabela_escolher_item(table, id): 
+    if id == 0:
+        model = tables[table]['model']
+        pessoa = tables[table]['pessoa']
+        nome = tables[table]['nome']
+        pessoa_id = tables[table]['pessoa_id']
+        try:
+            if table == 'coleta':
+                # pessoa_id = model.doador_id
+                filter_pessoa_id = request.args['doador']
+            elif table == 'entrega':
+                # pessoa_id = model.assistido_id
+                filter_pessoa_id = request.args['assistido']
+            else:
+                print('erro falta parametro')
+        except (AttributeError, KeyError):
+            pass
+        new_doacao = model(**{
+            'data_hora': datetime.now(),
+            pessoa_id: filter_pessoa_id, # type: ignore
+            'instituicao_id': 1,
+        })
+        db_session.add(new_doacao)
+        db_session.commit()
+        print(new_doacao)
+        return redirect(url_for('doacao.tabela_itens', **{'table': table, 'id': new_doacao.id, pessoa_id: filter_pessoa_id})) # type: ignore
+    nome_coluna = f'{table}_id' 
+    coluna = getattr(Item, nome_coluna)
+    
+    stmt = (
+        select(
+            NomeItem.id,
+            NomeItem.nome,
+            # NomeItem.categoria_id,
+            CategoriaItem.nome.label('categoria_nome'),
+        )
+        .join(CategoriaItem, NomeItem.categoria_id == CategoriaItem.id)
+    )
+
+    query = db_session.execute(stmt).all()
+    
+    print(query[0]._fields)
+    print(query)
+    
+    return render_template(f'doacao/escolher_item.html.j2',query=query)
