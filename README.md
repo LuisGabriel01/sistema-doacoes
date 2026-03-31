@@ -67,7 +67,7 @@ as dependências ficam anotadas no arquivo `pyproject.toml`
 com o `venv` ativado (por enquanto ainda não tem nada)
 
 ```shell
-flask run
+flask run --debug
 ```
 
 #### pra gerar o gráfico do ERM abaixo
