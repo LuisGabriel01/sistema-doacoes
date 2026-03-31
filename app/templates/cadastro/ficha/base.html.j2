@@ -26,15 +26,15 @@
     <div class="content">
     {% if read_only %}
         <input type="button" value="Editar" onclick="location.href='{{ url_for(request.endpoint, edit="true", **request.view_args) }}'">
+        {% block botao_ver_doacoes %}{% endblock %}
+        {% block botao_nova_doacao %}{% endblock %}
     {% else %}
         {% if request.view_args['id'] != 0 %}
             <input type="button" value="Cancelar" onclick="location.href='{{ url_for(request.endpoint, **request.view_args) }}'">
         {% else %}
-            <input type="button" value="Cancelar" onclick="location.href='{{ url_for('registro.tabela', table=request.view_args["table"]) }}'">
+            <input type="button" value="Cancelar" onclick="location.href='{{ url_for('cadastro.tabela', table=request.view_args["table"]) }}'">
         {% endif %}
     {% endif%}
-    {% block botao_ver_doacoes %}{% endblock %}
-    {% block botao_nova_doacao %}{% endblock %}
     <form method="POST" action="{{ url_for(request.endpoint, **request.view_args) }}">
         {{ form.csrf_token }}
         {% for field in fields %}
