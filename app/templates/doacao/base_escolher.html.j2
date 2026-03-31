@@ -40,7 +40,10 @@
                         name: 'Adicionar este item',
                         url: "{{ url_for('doacao.tabela_adicionar_item', table=request.view_args['table'], id=request.view_args['id'], nome_item_id=row.id)}}",
                     },
-                    {{ columns[0] }}: "{{ row|attr(columns[0]) }}",
+                    {{ columns[0] }}: {
+                        name: "{{ row|attr(columns[0]) }}",
+                        {# url: "{{ url_for('doacao.tabela_itens', table=table, id=row.id)}}", #}
+                        },
                     {% for column_name in columns[1:] %}
                         {{ column_name }}: "{{ row|attr(column_name) }}",
                     {% endfor %}
