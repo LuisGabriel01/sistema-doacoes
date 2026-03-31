@@ -62,12 +62,20 @@ pip install .
 
 as dependências ficam anotadas no arquivo `pyproject.toml`
 
-#### rodar o projeto
+#### popular o banco com os dados de teste
 
-com o `venv` ativado (por enquanto ainda não tem nada)
+apenas uma vez, ou quando alterarmos a estrutura do banco
 
 ```shell
-flask run
+flask seed_mock
+```
+
+#### rodar o projeto
+
+com o `venv` ativado
+
+```shell
+flask run --debug
 ```
 
 #### pra gerar o gráfico do ERM abaixo
