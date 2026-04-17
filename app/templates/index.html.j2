@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Doações</title>
-</head>
-<body>
+{% extends 'base.html.j2' %}
+
+{% set title = 'Sistema de Doações' %}
+
+{% block content %}
     {# <ul> #}
         {# {% for user in query %} #}
             {# <li>ID: {{user.id}} | Email: {{user.email}}</li> #}
         {# {% endfor %} #}
     {# </ul> #}
-    <h1>Sistema de Doações</h1>
     <a href="{{ url_for('cadastro.tabela', table='assistido')}}"><h2>Cadastro de Assistidos</h2></a>
     <a href="{{ url_for('cadastro.tabela', table='doador')}}"><h2>Cadastro de Doadores</h2></a>
     <a href="{{ url_for('doacao.tabela_doacao', table='coleta')}}"><h2>Doações: Coletas</h2></a>
     <a href="{{ url_for('doacao.tabela_doacao', table='entrega')}}"><h2>Doações: Entregas</h2></a>
-</body>
-</html>
+{% endblock %}
