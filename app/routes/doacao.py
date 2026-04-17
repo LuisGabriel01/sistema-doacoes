@@ -59,7 +59,7 @@ def tabela_doacao(table):
 
     query = db_session.execute(stmt).all()
     print(query[0])
-    return render_template(f'doacao/{table}.html.j2',query=query)
+    return render_template(f'doacao/tabela/{table}.html.j2',query=query)
 
 # id==0 para incluir novo?
 @doacao_blueprint.route('/doacao/<table>/<int:id>', methods=['GET', 'POST'])
@@ -114,7 +114,7 @@ def tabela_itens(table, id):
     
     print(query)
     
-    return render_template(f'doacao/item.html.j2',query=query)
+    return render_template(f'doacao/tabela/item.html.j2',query=query)
 
 @doacao_blueprint.route('/doacao/<table>/<int:id>/adicionar', methods=['GET', 'POST'])
 @auth_required()
@@ -200,4 +200,4 @@ def tabela_escolher_item(table, id):
     print(query[0]._fields)
     print(query)
     
-    return render_template(f'doacao/escolher_item.html.j2',query=query)
+    return render_template(f'doacao/tabela/escolher_item.html.j2',query=query)

@@ -27,7 +27,7 @@ def tabela(table):
     stmt = select(model)
     query = db_session.scalars(stmt).all()
     print(type(query))
-    return render_template(f'cadastro/{table}.html.j2',query=query)
+    return render_template(f'cadastro/tabela/{table}.html.j2',query=query)
 
 # id==0 para incluir novo?
 @cadastro_blueprint.route('/cadastro/<table>/<int:id>', methods=['GET', 'POST'])
@@ -67,4 +67,4 @@ def ficha(table, id):
             else:
                 print('erro validacao')
 
-    return render_template(f'cadastro/ficha/{table}.html.j2', form=form, read_only=read_only)
+    return render_template(f'cadastro/formulario/{table}.html.j2', form=form, read_only=read_only)
