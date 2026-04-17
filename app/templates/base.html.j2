@@ -10,7 +10,9 @@
 </head>
 <body>
     <h1>{{ title }}</h1>
+    {% if request.endpoint != 'home.home' %}
     <a href="{{ url_for('home.home')}}"><h2>Voltar à Tela Inicial</h2></a>
+    {% endif %}
     {% block content %}{% endblock %}
 </body>
 </html>
