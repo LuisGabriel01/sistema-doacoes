@@ -17,7 +17,7 @@ from app.models import User, Role
 from app.seed import seed_mock_from_json, seed_mock_users_roles
 from app.config import Config
 from app.routes.home import homes
-from app.routes.registro import registro_blueprint
+# from app.routes.registro import registro_blueprint
 from app.routes.doacao import doacao_blueprint
 from app.routes.cadastro import cadastro_blueprint
 # from app.routes.tabela import tabelas
@@ -45,7 +45,7 @@ def seed_mock():
         print("populando banco de dados a partir do json")
 
 app.register_blueprint(homes)
-app.register_blueprint(registro_blueprint)
+# app.register_blueprint(registro_blueprint)
 app.register_blueprint(cadastro_blueprint)
 app.register_blueprint(doacao_blueprint)
 # app.register_blueprint(tabelas)
