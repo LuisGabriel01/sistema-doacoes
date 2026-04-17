@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Test</title>
-    <style>
-        nav a {
-            color: #d64161;
-            font-size: 3em;
-            margin-left: 50px;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html.j2' %}
+
+{% block content %}
     {% set partes_url = request.path.strip('/').split('/') %}
     {% set url_voltar = '/' ~ (partes_url[:-1] | join('/')) %}
     <a href="{{ url_voltar }}" class="btn btn-secondary">Voltar</a>
@@ -51,5 +38,4 @@
         {% endif%}
     </form>
     </div>
-</body>
-</html>
+{% endblock %}
