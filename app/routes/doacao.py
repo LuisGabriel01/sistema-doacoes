@@ -138,11 +138,11 @@ def tabela_adicionar_item(table, id):
             model.id,
             pessoa_id.label('pessoa_id'), # type: ignore
         )
+        .where(model.id == id)
     )
 
     query = db_session.execute(stmt).all()
-    
-    print(query[0]._fields)
+
     print(query)
     new_item = Item(**{
         filter_pessoa_id: query[0].pessoa_id, #type: ignore
