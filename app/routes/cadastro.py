@@ -26,7 +26,6 @@ def tabela(table):
     model = tables[table]['model']
     stmt = select(model)
     query = db_session.scalars(stmt).all()
-    print(type(query))
     return render_template(f'cadastro/tabela/{table}.html.j2',query=query)
 
 # id==0 para incluir novo?
@@ -45,26 +44,18 @@ def ficha(table, id):
         query = db_session.get(model, id)
         form = tables[table]['form'](obj=query)
         if request.method == 'POST':
-            print(form.errors)
             if form.validate_on_submit():
-                print('validado!!!')
                 form.populate_obj(query)
                 db_session.add(query)
                 db_session.commit()
                 return redirect(request.url)
-            else:
-                print('erro validacao')
     else:
         if request.method == 'POST':
-            print(form.errors)
             if form.validate_on_submit():
-                print('validado!!!')
                 data = form.data
                 data.pop('csrf_token')
                 db_session.add(model(**data))
                 db_session.commit()
                 return redirect(request.url)
-            else:
-                print('erro validacao')
 
     return render_template(f'cadastro/formulario/{table}.html.j2', form=form, read_only=read_only)

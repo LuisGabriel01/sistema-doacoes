@@ -58,8 +58,6 @@ def tabela_doacao(table):
         pass
 
     query = db_session.execute(stmt).all()
-    if query:
-        print(query[0])
     return render_template(f'doacao/tabela/{table}.html.j2',query=query)
 
 # id==0 para incluir novo?
@@ -78,8 +76,6 @@ def tabela_itens(table, id):
             elif table == 'entrega':
                 # pessoa_id = model.assistido_id
                 filter_pessoa_id = request.args['assistido']
-            else:
-                print('erro falta parametro')
         except (AttributeError, KeyError):
             pass
         new_doacao = model(**{
@@ -89,7 +85,6 @@ def tabela_itens(table, id):
         })
         db_session.add(new_doacao)
         db_session.commit()
-        print(new_doacao)
         return redirect(url_for('doacao.tabela_itens', **{'table': table, 'id': new_doacao.id, pessoa_id: filter_pessoa_id})) # type: ignore
     nome_coluna = f'{table}_id' 
     coluna = getattr(Item, nome_coluna)
@@ -112,8 +107,6 @@ def tabela_itens(table, id):
     )
 
     query = db_session.execute(stmt).all()
-    
-    print(query)
     
     return render_template(f'doacao/tabela/item.html.j2',query=query)
 
@@ -144,7 +137,6 @@ def tabela_adicionar_item(table, id):
 
     query = db_session.execute(stmt).all()
 
-    print(query)
     if not query:
         from flask import abort
         abort(404)
@@ -173,8 +165,6 @@ def tabela_escolher_item(table, id):
             elif table == 'entrega':
                 # pessoa_id = model.assistido_id
                 filter_pessoa_id = request.args['assistido']
-            else:
-                print('erro falta parametro')
         except (AttributeError, KeyError):
             pass
         new_doacao = model(**{
@@ -184,7 +174,6 @@ def tabela_escolher_item(table, id):
         })
         db_session.add(new_doacao)
         db_session.commit()
-        print(new_doacao)
         return redirect(url_for('doacao.tabela_itens', **{'table': table, 'id': new_doacao.id, pessoa_id: filter_pessoa_id})) # type: ignore
     nome_coluna = f'{table}_id' 
     coluna = getattr(Item, nome_coluna)
@@ -200,9 +189,5 @@ def tabela_escolher_item(table, id):
     )
 
     query = db_session.execute(stmt).all()
-    
-    if query:
-        print(query[0]._fields)
-        print(query)
     
     return render_template(f'doacao/tabela/escolher_item.html.j2',query=query)
