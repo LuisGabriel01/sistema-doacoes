@@ -42,7 +42,7 @@ def ficha(table, id):
     except KeyError:
         pass
     if id != 0:
-        query = db_session.query(model).get(id)
+        query = db_session.get(model, id)
         form = tables[table]['form'](obj=query)
         if request.method == 'POST':
             print(form.errors)
