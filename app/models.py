@@ -79,7 +79,7 @@ class Assistido(Base, ContatoMixin):
     aposentado: Mapped[Optional[bool]] = mapped_column()
     pensao: Mapped[Optional[bool]] = mapped_column()
     cesta_basica: Mapped[Optional[bool]] = mapped_column()
-    atividade_remunerada: Mapped[Optional[int]] = mapped_column()
+    atividade_remunerada: Mapped[Optional[bool]] = mapped_column()
     renda: Mapped[Optional[float]] = mapped_column()
     crianca_escola: Mapped[Optional[bool]] = mapped_column()
     observacoes: Mapped[Optional[str]] = mapped_column()
