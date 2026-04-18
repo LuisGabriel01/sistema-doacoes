@@ -13,19 +13,19 @@ from app.config import Config
 
 
 def seed_mock_users_roles(db_session: scoped_session[Session], security: Security):
-        with open(Path(Config.MOCK_DIR, 'roles', encoding='utf-8').with_suffix('.json')) as f:
-             roles = json.load(f)
-        for role in roles:
-            security.datastore.find_or_create_role(**role)
-        db_session.commit()
+    with open(Path(Config.MOCK_DIR, 'roles', encoding='utf-8').with_suffix('.json')) as f:
+        roles = json.load(f)
+    for role in roles:
+        security.datastore.find_or_create_role(**role)
+    db_session.commit()
 
-        with open(Path(Config.MOCK_DIR, 'users', encoding='utf-8').with_suffix('.json')) as f:
-             users = json.load(f)
-        for user in users:
-            user['password'] = hash_password(user['password'])
-            if not security.datastore.find_user(email=user['email']):
-                security.datastore.create_user(**user)
-        db_session.commit()
+    with open(Path(Config.MOCK_DIR, 'users', encoding='utf-8').with_suffix('.json')) as f:
+        users = json.load(f)
+    for user in users:
+        user['password'] = hash_password(user['password'])
+        if not security.datastore.find_user(email=user['email']):
+            security.datastore.create_user(**user)
+    db_session.commit()
 
 def seed_mock_from_json(db_session: scoped_session[Session]):
     for model in Base.__subclasses__():
