@@ -3,6 +3,7 @@
 {% set title %}Doação: {{ table_title }}{% endset %}
 
 {% block content %}
+<a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
 {% if request.view_args['id'] %}
     <input type="button" value="Adicionar Item" onclick="location.href='{{ url_for('doacao.tabela_escolher_item', **request.view_args) }}'">
 {% endif %}
