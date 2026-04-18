@@ -122,7 +122,7 @@ def tabela_adicionar_item(table, id):
     nome_coluna = f'{table}_id' 
     coluna = getattr(Item, nome_coluna)
     model = tables[table]['model']
-    nome_id = request.args['nome_item_id']
+    nome_id = request.args.get('nome_item_id')
     try:
         if table == 'coleta':
             pessoa_id = model.doador_id
