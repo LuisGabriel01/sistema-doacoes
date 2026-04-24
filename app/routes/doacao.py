@@ -191,3 +191,17 @@ def tabela_escolher_item(table, id):
     query = db_session.execute(stmt).all()
     
     return render_template(f'doacao/tabela/escolher_item.html.j2',query=query)
+
+@doacao_blueprint.route('/doacao/<table>/<int:id>/deletar', methods=['GET', 'POST'])
+@auth_required()
+def tabela_deletar(table, id):
+    model = tables[table]['model']
+    
+    stmt = select(model).where(model.id == id)
+    registro = db_session.execute(stmt).scalar_one_or_none()
+
+    if registro:
+        db_session.delete(registro)
+        db_session.commit()
+
+    return redirect(url_for('doacao.tabela_doacao', table=table))
