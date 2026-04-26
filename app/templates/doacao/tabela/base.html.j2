@@ -3,13 +3,20 @@
 {% set title %}Doação: {{ table_title }}{% endset %}
 
 {% block content %}
-<a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
-{% if request.view_args['id'] %}
+
+
+{% if request.view_args.get('id') %}
+    <a href="{{ request.path.rstrip('/').split('/')[:-1] | join('/') or '/' }}" class="btn btn-secondary">
+        Voltar
+    </a>
     <input type="button" value="Adicionar Item" onclick="location.href='{{ url_for('doacao.tabela_escolher_item', **request.view_args) }}'">
     <input type="button" value="Remover Doação" onclick="location.href='{{ url_for('doacao.tabela_deletar', **request.view_args) }}'">
 {% endif %}
+
 <div id="table"></div>
+
 <script>
+
     new gridjs.Grid({
     columns: [
             {
@@ -23,7 +30,15 @@
                     name: '{{ column_name | capitalize }}',
                 },
             {% endfor %}
-    ],
+            
+            {% if request.view_args.get('id') %}
+                {
+                    id: 'excluir',
+                    name: 'Excluir item',
+                    formatter: (cell) => gridjs.html(cell) 
+                },
+            {% endif %} 
+            ],
     data: [
         {% for row in query %}
             {
@@ -34,6 +49,16 @@
                 {% for column_name in columns[1:] %}
                     {{ column_name }}: "{{ row|attr(column_name) }}",
                 {% endfor %}
+                
+                {% if request.view_args.get('id') %}
+                    excluir: `
+                        <button onclick="location.href='{{ url_for('doacao.item_deletar', table=request.view_args.get('table'), id=row.id) }}'"
+                                style="color: red; border: none; background: none; font-size: 20px; cursor: pointer; padding: 0;"
+                                title="Remover este item">
+                            &times;
+                        </button>
+                    `
+                {% endif %}
             },
         {% endfor %}
     ],

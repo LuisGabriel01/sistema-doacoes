@@ -205,3 +205,20 @@ def tabela_deletar(table, id):
         db_session.commit()
 
     return redirect(url_for('doacao.tabela_doacao', table=table))
+
+@doacao_blueprint.route('/doacao/<table>/item/<int:id>/deletar', methods=['GET', 'POST'])
+@auth_required()
+def item_deletar(table, id): 
+    stmt = select(Item).where(Item.id == id)
+    registro = db_session.execute(stmt).scalar_one_or_none()
+
+    if registro:
+        nome_coluna_doacao = f'{table}_id'
+        doacao_id = getattr(registro, nome_coluna_doacao)
+
+        db_session.delete(registro)
+        db_session.commit()
+
+        return redirect(url_for('doacao.tabela_itens', table=table, id=doacao_id))
+
+    return redirect(url_for('doacao.tabela_doacao', table=table))
