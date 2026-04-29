@@ -4,15 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
     {# {% block extra_head %}{% endblock %} #}
 </head>
 <body>
-    <h1>{{ title }}</h1>
-    {% if request.endpoint != 'home.home' %}
-    <a href="{{ url_for('home.home')}}"><h2>Voltar à Tela Inicial</h2></a>
-    {% endif %}
-    {% block content %}{% endblock %}
+    <div id="baseSidenav" class="sidenav">
+        <a href="{{ url_for('cadastro.tabela', table='assistido')}}">Cadastro de Assistidos</a>
+        <a href="{{ url_for('cadastro.tabela', table='doador')}}">Cadastro de Doadores</a>
+        <a href="{{ url_for('doacao.tabela_doacao', table='coleta')}}">Doações: Coletas</a>
+        <a href="{{ url_for('doacao.tabela_doacao', table='entrega')}}">Doações: Entregas</a>
+    </div>
+    
+    <div id="main">
+        <h1>{{ title }}</h1>
+        {% if request.endpoint != 'home.home' %}
+        <a href="{{ url_for('home.home')}}"><h2>Voltar à Tela Inicial</h2></a>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
 </body>
 </html>
