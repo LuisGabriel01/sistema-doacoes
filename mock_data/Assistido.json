@@ -16,7 +16,7 @@
     "aposentado": false,
     "pensao": false,
     "cesta_basica": true,
-    "atividade_remunerada": 0,
+    "atividade_remunerada": false,
     "renda": 1200.50,
     "crianca_escola": true,
     "observacoes": "Mãe solteira, trabalha como diarista. Filha com necessidade especial."
@@ -38,7 +38,7 @@
     "aposentado": false,
     "pensao": true,
     "cesta_basica": false,
-    "atividade_remunerada": 1,
+    "atividade_remunerada": true,
     "renda": 2500.00,
     "crianca_escola": false,
     "observacoes": "Trabalha como vendedor. Recebe pensão alimentícia."
@@ -60,7 +60,7 @@
     "aposentado": true,
     "pensao": false,
     "cesta_basica": true,
-    "atividade_remunerada": 0,
+    "atividade_remunerada": false,
     "renda": 1800.00,
     "crianca_escola": true,
     "observacoes": "Aposentada, sofre de hipertensão. Neto adolescente na escola."
@@ -82,7 +82,7 @@
     "aposentado": false,
     "pensao": false,
     "cesta_basica": true,
-    "atividade_remunerada": 1,
+    "atividade_remunerada": true,
     "renda": 3200.00,
     "crianca_escola": true,
     "observacoes": "CASADO, três filhos. Ambos trabalham."
@@ -104,7 +104,7 @@
     "aposentado": false,
     "pensao": false,
     "cesta_basica": true,
-    "atividade_remunerada": 1,
+    "atividade_remunerada": true,
     "renda": 2100.00,
     "crianca_escola": false,
     "observacoes": "Em união estável. Quatro filhos menores, todos em idade pré-escolar."
@@ -126,7 +126,7 @@
     "aposentado": false,
     "pensao": true,
     "cesta_basica": false,
-    "atividade_remunerada": 1,
+    "atividade_remunerada": true,
     "renda": 4500.00,
     "crianca_escola": true,
     "observacoes": "Divorciado, guarda dos dois filhos adolescentes."
@@ -148,7 +148,7 @@
     "aposentado": false,
     "pensao": true,
     "cesta_basica": true,
-    "atividade_remunerada": 0,
+    "atividade_remunerada": false,
     "renda": 1500.00,
     "crianca_escola": false,
     "observacoes": "Mãe solo, trabalha em home office. Filha com necessidades especiais."
@@ -170,7 +170,7 @@
     "aposentado": false,
     "pensao": false,
     "cesta_basica": false,
-    "atividade_remunerada": 2,
+    "atividade_remunerada": true,
     "renda": 6800.00,
     "crianca_escola": true,
     "observacoes": "Casado, filho único em fase universitária."
