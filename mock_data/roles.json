@@ -2,5 +2,9 @@
     {
         "name": "user", 
         "permissions": ["user-read", "user-write"]
+    },
+    {
+        "name": "admin",
+        "permissions": ["admin-read", "admin-write"]
     }
 ]

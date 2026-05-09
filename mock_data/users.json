@@ -1,7 +1,12 @@
 [
     {
-        "email": "test@me.com", 
-        "password": "password", 
+        "email": "usuario@email.com", 
+        "password": "senhausuario", 
         "roles": ["user"]
+    },
+    {
+        "email": "admin@email.com", 
+        "password": "senhaadmin", 
+        "roles": ["admin"]
     }
 ]

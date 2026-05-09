@@ -1,6 +1,8 @@
 {% extends 'cadastro/formulario/base.html.j2' %}
 {% set title = 'Ficha de Assistido' %}
 {% set table = 'assistido' %}
+{% set admin = current_user.has_role('admin') %}
+{# {% set title = admin %} #}
 
 {% block botao_ver_doacoes %}
     <input type="button" value="Ver Entregas" onclick="location.href='{{ url_for('doacao.tabela_doacao', table='entrega', assistido=request.view_args['id']) }}'">
@@ -9,7 +11,12 @@
 {% block botao_nova_doacao %}
     <input type="button" value="Fazer Nova Entrega" onclick="location.href='{{ url_for('doacao.tabela_itens', id=0, table='entrega', assistido=request.view_args['id']) }}'">
 {% endblock %}
-
+{# voluntários tenham acesso apenas aos dados essenciais para a execução de suas
+ atividades, como 
+ nome do assistido, 
+ endereço, 
+ tipo de auxílio recebido e 
+ observações relevantes #}
 {% set fields = [
         {
             'name': 'nome',
@@ -28,14 +35,10 @@
             'size': 20,
         },
         {
-            'name': 'tipo_imovel',
+            'name': 'bolsa_familia',
         },
         {
-            'name': 'valor_aluguel',
-            'size': 10,
-        },
-        {
-            'name': 'estado_civil',
+            'name': 'cesta_basica',
         },
         {
             'name': 'numero_adultos',
@@ -52,17 +55,25 @@
         {
             'name': 'doentes',
         },
+]
+%}
+{% if admin %}
+{% set fields = fields + [
         {
-            'name': 'bolsa_familia',
+            'name': 'tipo_imovel',
+        },
+        {
+            'name': 'valor_aluguel',
+            'size': 10,
+        },
+        {
+            'name': 'estado_civil',
         },
         {
             'name': 'aposentado',
         },
         {
             'name': 'pensao',
-        },
-        {
-            'name': 'cesta_basica',
         },
         {
             'name': 'atividade_remunerada',
@@ -76,10 +87,12 @@
         {
             'name': 'crianca_escola',
         },
+] %}
+{% endif %}
+{% set fields = fields + [
         {
             'name': 'observacoes',
             'rows': 4,
             'cols': 50,
-        },
-    ]
-%}
+        }
+] %}
