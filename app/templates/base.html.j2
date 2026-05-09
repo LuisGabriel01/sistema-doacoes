@@ -8,10 +8,27 @@
 
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <script>
+     function openNav() {
+  document.getElementById("baseSidenav").style.width = "250px";
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+  document.getElementById("baseSidenav").style.width = "0";
+}
+
+    </script>
     {# {% block extra_head %}{% endblock %} #}
 </head>
 <body>
+    <div id="topNav" class="topnav">
+        <a id="menuBtn" href="javascript:void(0)" onclick="openNav()">Menu</a>
+        <a id="homeBtn" class="active" href="{{ url_for('home.home')}}">Início</a>
+        <a id="logoutBtn" href="/logout">Sair</a>
+    </div>
     <div id="baseSidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="{{ url_for('cadastro.tabela', table='assistido')}}">Cadastro de Assistidos</a>
         <a href="{{ url_for('cadastro.tabela', table='doador')}}">Cadastro de Doadores</a>
         <a href="{{ url_for('doacao.tabela_doacao', table='coleta')}}">Doações: Coletas</a>
@@ -20,9 +37,9 @@
     
     <div id="main">
         <h1>{{ title }}</h1>
-        {% if request.endpoint != 'home.home' %}
+        {# {% if request.endpoint != 'home.home' %}
         <a href="{{ url_for('home.home')}}"><h2>Voltar à Tela Inicial</h2></a>
-        {% endif %}
+        {% endif %} #}
         {% block content %}{% endblock %}
     </div>
 </body>

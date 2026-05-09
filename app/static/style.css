@@ -136,8 +136,8 @@ input[type=submit] {
 /* The side navigation menu */
 .sidenav {
   height: 100%; /* 100% Full-height */
-  /*width: 0; /* 0 width - change this with JavaScript */
-  width: 200px; /* 0 width - change this with JavaScript */
+  width: 0; /* 0 width - change this with JavaScript
+  /*width: 200px; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -176,11 +176,57 @@ input[type=submit] {
 #main {
   transition: margin-left .5s;
   padding: 20px;
-  margin-left: 200px;
+  /* margin-left: 200px; */
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+
+/* Top NAV */
+/* Add a black background color to the top navigation */
+.topnav {
+  /* position: absolute; */
+  background-color: #0365ab;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  /* float: left; */
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.topnav #menuBtn {
+  position: absolute;
+  left: 0;
+}
+/* .topnav #homeBtn { */
+  /* left: 50%; */
+/* } */
+.topnav #logoutBtn {
+  /* float: right; */
+  position: absolute;
+  right: 0;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #0a97fc;
+  color: white;
 }
